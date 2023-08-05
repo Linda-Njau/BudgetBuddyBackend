@@ -18,8 +18,14 @@ class MockFetchPaymentsApi(object):
         current_month = now.month
         previous_month = current_month -1
         self.data = {
-            "42": {current_month : {"food" : 10000 }, previous_month : {"food" : 4000 }},
-            "21": {current_month : {"food" : 10000}, previous_month : {"food" : 11000 }}
+            "42": {
+                current_month : {"food" : 10000, "entertainment": 2000},
+                previous_month : {"food" : 4000, "entertainment": 1000 }
+                },
+            "21": {
+                current_month : {"food" : 10000, "entertainment": 2000}, 
+                previous_month : {"food" : 11000, "entertainment": 1800}
+                }
         }
         
     def fetch_payments(self, user_id, month):
@@ -36,8 +42,7 @@ class TestUnusualSpending(unittest.TestCase):
     @patch.object(NotifyCardHolderWrapper, 'email', autospec=True)        
     def test_unusual_spending_for_text(self, mock_email): 
         unusual_spending.run("42")
-        
-        mock_email.assert_called_once_with(notify_card_holder,"42", "high_spending")
+        mock_email.assert_called_once_with(notify_card_holder, "42", "high_spending")
         
     
     @patch.object(NotifyCardHolderWrapper, 'email')        
@@ -46,3 +51,8 @@ class TestUnusualSpending(unittest.TestCase):
         
         mock_email.assert_not_called()
 
+    @patch.object(NotifyCardHolderWrapper, 'email', autospec=True)
+    def test_unusual_spending_with_multiple_categories(self, mock_email):
+        unusual_spending.run("42")
+        mock_email.assert_called_once_with(notify_card_holder, "42", "high_spending")
+       

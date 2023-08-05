@@ -18,8 +18,9 @@ class UnusualSpending(object):
         previous_month_payments = self.fetch_payments_wrapper.fetch_payments(user_id, previous_month)
         
         if current_month_payments and previous_month_payments:
-            current_month_spending = current_month_payments.get("food", 0)
-            previous_month_spending = previous_month_payments.get("food", 0)
+            for category in current_month_payments:
+                current_month_spending = current_month_payments.get(category, 0)
+                previous_month_spending = previous_month_payments.get(category, 0)
             
             if current_month_spending > 1.5 * previous_month_spending:
                 print("overspending detected, send email notification")
