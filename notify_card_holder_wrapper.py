@@ -1,5 +1,5 @@
 
-class NotifyCardHolder(object):
+class NotifyCardHolderWrapper(object):
     def __init__(self, email_api):
         self.email_api = email_api
         
