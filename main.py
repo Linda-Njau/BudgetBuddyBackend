@@ -22,7 +22,7 @@ class UnusualSpending(object):
                 current_month_spending = current_month_payments.get(category, 0)
                 previous_month_spending = previous_month_payments.get(category, 0)
             
-            if current_month_spending > 1.5 * previous_month_spending:
+            if current_month_spending >= 1.5 * previous_month_spending:
                 print("overspending detected, send email notification")
                 return True
             else:
