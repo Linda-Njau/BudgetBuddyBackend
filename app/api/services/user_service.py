@@ -3,6 +3,7 @@ from app import db
 
 
 class UserService:
+    """Service for interacting with the users endpoints."""
     
     def create_user(self, data):
         """Creates new user"""
@@ -45,6 +46,10 @@ class UserService:
         password = data.get('password')
         username = data.get('username')
         
+        user.email = email
+        user.password = password
+        user.username = username
+         
         db.session.commit()
         return {'message' : 'User updated successfully'}
     
