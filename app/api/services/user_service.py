@@ -1,4 +1,4 @@
-from app.models import User
+from app.models import User, PaymentCategory
 from app import db
 
 
@@ -62,3 +62,26 @@ class UserService:
         db.session.commit()
         
         return {'message': 'User deleted successfully'}
+    
+    def create_payment_category(self, user_id, data):
+        """needs authentication to be properly implemented"""
+        category_name = data.get('category_name')
+        
+        if not category_name:
+            return {'error': 'missing category name'}, 400
+        new_payment_category = PaymentCategory(
+            category_name = category_name,
+            user_id = user_id
+        )
+        db.session.add(new_payment_category)
+        db.session.commit()
+        
+    def get_payment_categories(self, user_id):
+        payment_categories = PaymentCategory.query.filter_by(user_id =user_id).all()
+        payment_categories_list = []
+        for payment_category in payment_categories:
+            payment_category_data = {
+                'category_name': payment_category.category_name
+            }
+            payment_categories_list.append(payment_category_data)
+            return payment_categories_list

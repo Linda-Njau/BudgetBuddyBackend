@@ -1,17 +1,23 @@
-from flask import Blueprint, jsonify
+from app.api.services.payment_category_service import PaymentCategoryService
+from flask import Blueprint, jsonify, request
 
-payment_category = Blueprint('payment_category,__name__')
+payment_categories = Blueprint('payment_categories,__name__')
+payment_category_service = PaymentCategoryService()
 
-
-@payment_category.route('/<int:user_id>', methods=['GET'], strict_slashes=False)
-def get_payment_categories(user_id):
-    """Returns payment categories for the given user"""
-    payment_categories = payments_category_service.get_payment_categories(user_id)
-    return jsonify(payment_categories)
-
-@payment_category.route('/<int:payment_category_id>', methods=['GET'], strict_slashes=False)
+@payment_categories.route('/<int:payment_category_id>', methods=['DELETE'], strict_slashes=False)
 def get_payment_category_by_payment_category(payment_category_id):
-    """Returns the payment category specified by it's id"""
-    payment_category = payments_category_service.get_payment_category(payment_category_id)
+    """Deletes the payment category specified by it's id"""
+    payment_category = payment_category_service.get_payment_category(payment_category_id)
     return jsonify(payment_category)
 
+@payment_categories.route('/<int:payment_category_id>', methods=['PUT'], strict_slashes=False)
+def payment_category_by_payment_category(payment_category_id):
+    """updates the payment category specified by it's id"""
+    data = request.get_json()
+    response = payment_category_service.update_payment_category(payment_category_id, data)
+    return jsonify(response)
+
+@payment_categories.route('/<int:payment_category_id>', methods=['DELETE'], strict_slashes=False)
+def delete_payment_category(payment_category_id):
+    response = payment_category_service.delete_payment_category(payment_category_id)
+    return jsonify(response)

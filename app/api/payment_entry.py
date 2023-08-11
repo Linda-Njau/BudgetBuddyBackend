@@ -8,12 +8,18 @@ payment_entry_service = PaymentEntry()
 def create_payment_entry():
     data = request.get_json()
     response = payment_entry_service.create_payment_entry(data)
-    return jsonify(response), response[1]
+    return jsonify(response), 201
 
 @payment_entries.route('/<int:payment_entry_id>', methods=['GET'], strict_slashes=False)
 def get_payment_entry(payment_entry_id):
     payment_entry = payment_entry_service.get_payment_entry(payment_entry_id)
     return jsonify(payment_entry), 200
+
+@payment_entries.route('/<int:payment_category_id>/payment_entries', methods=['GET'], strict_slashes=False)
+def get_payment_entries(payment_category_id):
+    """Returns a payment category and all the payment entries for the given user"""
+    payment_entries = payment_entry_service.get_payment_entries(payment_category_id)
+    return jsonify(payment_entries), 200
 
 @payment_entries.route('/<int:payment_entry_id>', methods=['PUT'], strict_slashes=False)
 def update_payment_entry(payment_entry_id):
