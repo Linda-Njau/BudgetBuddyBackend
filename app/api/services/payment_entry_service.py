@@ -1,5 +1,3 @@
-from unicodedata import category
-from app.api.payment_entry import delete_payment_entry
 from app.models import PaymentEntry, PaymentCategory
 from app import db
 
@@ -34,10 +32,23 @@ class PaymentEntryService:
             'id': payment_entry.id,
             'amount': payment_entry.amount,
             'payment_date': payment_entry.payment_date,
-            'payment_category_id': payment_entry.payment_category_id
+            'category_name': payment_entry.payment_category.category_name
         }
         return payment_entry_data
-        
+    
+    def get_payment_entries(self, payment_category_id):
+        payment_entries = PaymentCategory.query.filter_by(payment_category_id=payment_category_id).all()
+        if not payment_entries:
+            return {"error": "Payment entries not found"}, 404
+        payment_entries_list = []
+        for payment_entry in payment_entries:
+            payment_entries_data = {
+                'amount': payment_entry.amount,
+                'payment_date': payment_entry.payment_date
+            }
+            payment_entries_list.append(payment_entries_data)
+        return payment_entries_list
+
     def update_payment_entry(self, payment_entry_id, data):
         payment_entry = PaymentEntry.query.get(payment_entry_id)
         if not payment_entry:
