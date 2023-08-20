@@ -1,6 +1,5 @@
-from app.api.payment_entry import delete_payment_entry
-from app.models import PaymentCategory
-from app import db
+from ...models import PaymentCategory
+from ... import db
 
 class PaymentCategoryService:
     """Service for interacting with the payment category"""

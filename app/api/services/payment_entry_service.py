@@ -1,5 +1,6 @@
-from app.models import PaymentEntry, PaymentCategory
-from app import db
+from ...models import PaymentEntry, PaymentCategory
+from ... import db
+from datetime import datetime
 
 class PaymentEntryService:
     """Service for interacting with the payment entry endpoints"""
@@ -22,7 +23,10 @@ class PaymentEntryService:
         db.session.add(new_payment_entry)
         db.session.commit()
         
-        return{"message": "New payment entry added successfully"}, 201
+        return{
+            "message": "New payment entry added successfully",
+            "payment_entry_id": new_payment_entry.id
+            }, 201
 
     def get_payment_entry(self, payment_entry_id):
         payment_entry = PaymentEntry.query.get(payment_entry_id)
@@ -36,15 +40,20 @@ class PaymentEntryService:
         }
         return payment_entry_data
     
-    def get_payment_entries(self, payment_category_id):
-        payment_entries = PaymentCategory.query.filter_by(payment_category_id=payment_category_id).all()
+    def get_payment_entries(self, payment_category_id, month=None):
+        query = PaymentEntry.query.filter_by(payment_category_id=payment_category_id)
+        if month:
+            start_date = datetime.strptime(month, '%Y-%m-')
+            end_date = start_date.replace(day=30)
+            query = query.filter(PaymentEntry.payment_date >=start_date, PaymentEntry.payment_date <= end_date)
+        payment_entries = query.all()
         if not payment_entries:
             return {"error": "Payment entries not found"}, 404
         payment_entries_list = []
         for payment_entry in payment_entries:
             payment_entries_data = {
                 'amount': payment_entry.amount,
-                'payment_date': payment_entry.payment_date
+                'payment_date': payment_entry.payment_date.strftime('%Y-%m-%d')
             }
             payment_entries_list.append(payment_entries_data)
         return payment_entries_list
