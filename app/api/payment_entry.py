@@ -1,10 +1,11 @@
-from app.models import PaymentEntry
+from .services.payment_entry_service import PaymentEntryService
+from ..models import PaymentEntry
 from flask import Blueprint, request, jsonify
 
 payment_entries = Blueprint('payment_entries',__name__)
-payment_entry_service = PaymentEntry()
+payment_entry_service = PaymentEntryService()
 
-@payment_entries.route('/', methods=['POST'], strict_slashes=False)
+@payment_entries.route('/payment_entries', methods=['POST'], strict_slashes=False)
 def create_payment_entry():
     data = request.get_json()
     response = payment_entry_service.create_payment_entry(data)
@@ -18,8 +19,9 @@ def get_payment_entry(payment_entry_id):
 @payment_entries.route('/<int:payment_category_id>/payment_entries', methods=['GET'], strict_slashes=False)
 def get_payment_entries(payment_category_id):
     """Returns a payment category and all the payment entries for the given user"""
-    payment_entries = payment_entry_service.get_payment_entries(payment_category_id)
-    return jsonify(payment_entries), 200
+    month = request.args.get('month')
+    payment_category_entries = payment_entry_service.get_payment_entries(payment_category_id, month)
+    return jsonify(payment_category_entries), 200
 
 @payment_entries.route('/<int:payment_entry_id>', methods=['PUT'], strict_slashes=False)
 def update_payment_entry(payment_entry_id):

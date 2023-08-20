@@ -1,4 +1,4 @@
-from datetime import datetime
+"""from datetime import datetime
 from notify_card_holder_wrapper import NotifyCardHolderWrapper
 from fetch_payments_wrappper import FetchPaymentsWrapper
 
@@ -31,5 +31,5 @@ class UnusualSpending(object):
                 
     def run(self, user_id):
         if self.is_unusual_spending(user_id):
-            self.notify_card_holder_wrapper.email(user_id, "high_spending")
+            self.notify_card_holder_wrapper.email(user_id, "high_spending")"""
 
