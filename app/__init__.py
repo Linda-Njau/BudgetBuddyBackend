@@ -1,24 +1,39 @@
-from flask import Flask
+from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from config import Config
+from .config import Config
 from os import path
 
 
 db = SQLAlchemy()
 migrate = Migrate()
 DB_NAME = "database.db"
-
-def create_app():
+def create_app(environment: str = 'development'):
     """Create a new flask application"""
     app = Flask(__name__)
-    app.config.from_object(Config)
+    environment_config = Config[environment]
+    app.config.from_object(environment_config)
     db.init_app(app)
     migrate.init_app(app, db)
     
+    from .api.users import users
+    from .api.payment_entry import payment_entries
+    from .api.payment_category import payment_categories
+    
+    app.register_blueprint(users)
+    app.register_blueprint(payment_entries)
+    app.register_blueprint(payment_categories)
+    
+    @app.before_request
+    def before_request():
+        print("Requested endpoint:", request.endpoint)
+
+
+    with app.app_context():
+        create_database(app)
+    
+    return app
 def create_database(app):
     """Create a database if it doesn't already exist"""
-    if not path.exists('app/' + DB_NAME):
+    if not path.exists('unusual_spending/' + DB_NAME):
         db.create_all()
-        print("Database created successfully")
-
