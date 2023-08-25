@@ -8,17 +8,23 @@ class PaymentEntryService:
     def create_payment_entry(self, data):
         """Create a new payment entry"""
         amount = data.get('amount')
-        payment_category_id = data.get('payment_category_id')
-       
-        if not amount or not payment_category_id:
+        payment_category_value = data.get('payment_category')
+        user_id = data.get('user_id')
+        if not amount or not payment_category_value:
             return {'error': 'missing amount or payment_category_id'}, 400
         
-        payment_category = PaymentCategory.query.get(payment_category_id)
+        payment_category = None
+        for enum_member in PaymentCategory:
+            if enum_member.value == payment_category_value:
+                payment_category = enum_member
+                break
+            
         if not payment_category:
-            return {'error': 'invalid payment category id'}, 400
+            return {'error': 'invalid payment category'}, 400
         new_payment_entry = PaymentEntry(
             amount=amount,
-            payment_category_id=payment_category_id
+            payment_category=payment_category,
+            user_id=user_id
         )
         db.session.add(new_payment_entry)
         db.session.commit()
