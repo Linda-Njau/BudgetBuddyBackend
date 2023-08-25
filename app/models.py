@@ -34,6 +34,7 @@ class User(db.Model):
     def update(self, email: str = None, password: str = None, username: str = None):
         if email:
             self.email = email
+            
         if password:
             self.password_hash = generate_password_hash(password)
         if username:

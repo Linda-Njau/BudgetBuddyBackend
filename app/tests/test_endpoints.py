@@ -101,17 +101,22 @@ class TestUserEndpoints(unittest.TestCase):
             )
             db.session.add(test_user)
             db.session.commit()
+            user_id = test_user.user_id
             
             payment_entry_data = {
                 'amount': 50,
-                'payment_category': PaymentCategory.FOOD.value
+                'payment_category': PaymentCategory.FOOD.value,
+                'user_id': user_id
             }
             response = self.client.post('/payment_entries', json=payment_entry_data)
             self.assertEqual(response.status_code, 201)
             response_data = response.get_json()
-            print(response_data)
+            print(f'Here is the response_data{response_data}')
             payment_entry_id = response_data[0].get('payment_entry_id')
+            print(response.status_code)
+            print(response.get_json())
             self.assertIsNotNone(payment_entry_id)
+            created_payment_entry = PaymentEntry.query.get(payment_entry_id)
             self.assertEqual(created_payment_entry.amount, 50)
-            self.assertEqual(created_payment_entry.payment_category, payment_entry_data['payment_category'])
-            self.assertEqual(created_payment_entry.user_id, user_id)
+            self.assertEqual(created_payment_entry.payment_category, PaymentCategory.FOOD)
+            self.assertEqual(created_payment_entry.user_id, test_user.user_id)
