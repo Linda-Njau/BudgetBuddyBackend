@@ -1,0 +1,146 @@
+import unittest
+from .. import create_app
+from app.models import User, PaymentCategory, PaymentEntry
+from app import db
+from datetime import datetime
+
+flask_app = create_app(environment="testing")
+
+
+class TestUserEndpoints(unittest.TestCase):
+    def setUp(self):
+        self.app = create_app(environment="testing")
+        self.client = self.app.test_client()
+        
+        with self.app.app_context():
+            self.test_user = User(
+                username="test_user",
+                email="testuser@example.com",
+                password_hash = "testpassword"
+            )
+            db.session.add(self.test_user)
+            db.session.commit()
+            self.user_id = self.test_user.user_id
+    
+    def tearDown(self):
+        with self.app.app_context():
+            db.session.remove()
+            db.drop_all()
+            
+    def test_create_user(self):
+        user_data = {
+            'email': 'testuser2@example.com',
+            'username': 'testuser2',
+            'password': 'testpassword'
+            }
+        response = self.client.post('/users', json=user_data)
+        self.assertEqual(response.status_code, 201)
+        with self.app.app_context():
+            with self.app.test_request_context():
+                created_user = User.query.filter_by(username=user_data['username']).first()
+                self.assertIsNotNone(created_user)
+                self.assertEqual(created_user.email, user_data['email'])
+                self.assertIsNotNone(created_user.user_id)
+
+    def test_get_user(self):
+        response = self.client.get(f'/users/{self.user_id}')
+        self.assertEqual(response.status_code, 200)
+        expected_user_data = {
+            'user_id': self.user_id,
+            'username': 'test_user',
+            'email': 'testuser@example.com'
+        }
+        response_data = response.get_json()
+        self.assertEqual(response_data, expected_user_data)
+    
+    def test_update_user(self):
+        with self.app.app_context():
+            updated_data = {
+                'email': 'updateduser@example.com',
+                'username': 'updateduser'
+            }
+        
+            response = self.client.put(f'/users/{self.user_id}', json=(updated_data))
+            self.assertEqual(response.status_code, 200)
+            with db.session() as session:
+                updated_user = session.get(User, self.user_id)
+                self.assertIsNotNone(updated_user)
+                self.assertEqual(updated_user.email, 'updateduser@example.com')
+                self.assertEqual(updated_user.username, 'updateduser')
+                
+    def test_delete_user(self):
+        with self.app.app_context():
+            response = self.client.delete(f'/users/{self.user_id}')
+            self.assertEqual(response.status_code, 200)
+            with db.session() as session:
+                deleted_user = session.get(User, self.user_id)
+                self.assertIsNone(deleted_user)
+                response_data = response.get_json()
+                self.assertEqual(response_data['message'], 'User deleted successfully')
+
+            
+    def test_get_payment_entries(self):
+        with self.app.app_context():
+            user_id = self.test_user.user_id
+            payment_entry1 = PaymentEntry(
+                amount=50,
+                payment_category=PaymentCategory.FOOD,
+                created_at=datetime(2023, 1, 15),
+                user_id=user_id
+            )
+            payment_entry2 = PaymentEntry(
+                amount=75,
+                payment_category=PaymentCategory.TRAVEL,
+                created_at=datetime(2023, 2, 20),
+                user_id=user_id
+            )
+            payment_entry3 = PaymentEntry(
+                amount=100,
+                payment_category=PaymentCategory.FOOD,
+                created_at=datetime(2023, 1, 20),
+                user_id=user_id
+            )
+            db.session.add(payment_entry1)
+            db.session.add(payment_entry2)
+            db.session.add(payment_entry3)
+            db.session.commit()
+            
+            response = self.client.get(f'/users/{user_id}/payment_entries')
+            self.assertEqual(response.status_code, 200)
+            response_data = response.get_json()
+            print(response_data)
+            self.assertEqual(len(response_data), 3)
+            
+            for payment_entry in response_data:
+                self.assertIn('payment_category', payment_entry)
+                
+            response = self.client.get(f'/users/{user_id}/payment_entries?payment_category=FOOD')
+            print("URL:", f'/users/{user_id}/payment_entries?payment_category=FOOD')
+            self.assertEqual(response.status_code, 200)
+            response_data = response.get_json()
+            print("Response Data:", response_data)
+            self.assertEqual(len(response_data), 2)
+            self.assertEqual(response_data[0]['payment_category'], PaymentCategory.FOOD.value)
+            
+            response = self.client.get(f'/users/{user_id}/payment_entries?payment_category=TRAVEL')
+            print("URL:", f'/users/{user_id}/payment_entries?payment_category=TRAVEL')
+            self.assertEqual(response.status_code, 200)
+            response_data = response.get_json()
+            print("Response Data:", response_data)
+            self.assertEqual(len(response_data), 1)
+            self.assertEqual(response_data[0]['payment_category'], PaymentCategory.TRAVEL.value)
+            
+            response = self.client.get(f'/users/{user_id}/payment_entries?month=1')
+            self.assertEqual(response.status_code, 200)
+            response_data = response.get_json()
+            print("URL:", f'/users/{user_id}/payment_entries?month=1/')
+            print("Response Data:", response_data)
+            self.assertEqual(len(response_data), 2)
+            
+            response = self.client.get(f'/users/{user_id}/payment_entries?payment_category=FOOD&month=1')
+            self.assertEqual(response.status_code, 200)
+            print("URL:", f'/users/{user_id}/payment_entries?payment_category=FOOD&month=1')
+            response_data = response.get_json()
+            print("Response Data:", response_data)
+            self.assertEqual(len(response_data), 2)
+            

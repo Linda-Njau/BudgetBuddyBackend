@@ -9,7 +9,7 @@ class PaymentEntryService:
         """Create a new payment entry"""
         amount = data.get('amount')
         payment_category_value = data.get('payment_category')
-        user_id = data.get('user_id')
+        user_id = data.get('user_id')  ##needs to be updated to factor in current user
         if not amount or not payment_category_value:
             return {'error': 'missing amount or payment_category_id'}, 400
         
@@ -46,24 +46,6 @@ class PaymentEntryService:
         }
         return payment_entry_data
     
-    def get_payment_entries(self, payment_category_id, month=None):
-        query = PaymentEntry.query.filter_by(payment_category_id=payment_category_id)
-        if month:
-            start_date = datetime.strptime(month, '%Y-%m-')
-            end_date = start_date.replace(day=30)
-            query = query.filter(PaymentEntry.payment_date >=start_date, PaymentEntry.payment_date <= end_date)
-        payment_entries = query.all()
-        if not payment_entries:
-            return {"error": "Payment entries not found"}, 404
-        payment_entries_list = []
-        for payment_entry in payment_entries:
-            payment_entries_data = {
-                'amount': payment_entry.amount,
-                'payment_date': payment_entry.payment_date.strftime('%Y-%m-%d')
-            }
-            payment_entries_list.append(payment_entries_data)
-        return payment_entries_list
-
     def update_payment_entry(self, payment_entry_id, data):
         payment_entry = PaymentEntry.query.get(payment_entry_id)
         if not payment_entry:
