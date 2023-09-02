@@ -27,3 +27,10 @@ def update_user(user_id):
 def delete_user(user_id):
     response = user_service.delete_user(user_id)
     return jsonify(response), 200
+
+@users.route('/users/<int:user_id>/payment_entries', methods=['GET'], strict_slashes=False)
+def get_payment_entries(user_id):
+    payment_category = request.args.get('payment_category')
+    month = request.args.get('month')
+    payment_entries = user_service.get_payment_entries(user_id, payment_category, month)
+    return jsonify(payment_entries)
