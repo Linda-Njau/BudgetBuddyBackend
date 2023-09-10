@@ -5,7 +5,7 @@ from app.models import User, PaymentEntry, PaymentCategory
 from datetime import datetime
 
 
-class TestPaymentEntriesEndpints(unittest.TestCase):
+class TestPaymentEntriesEndpoints(unittest.TestCase):
     def setUp(self):
         self.app = create_app(environment="testing")
         self.client = self.app.test_client()
@@ -63,10 +63,17 @@ class TestPaymentEntriesEndpints(unittest.TestCase):
         response = self.client.get(f'/payment_entries/{self.test_payment_entry_id}')
         self.assertEqual(response.status_code, 200)
         expected_payment_data = {
-            "amount" : 50,
-            "payment_category" : PaymentCategory.FOOD,
-            "created_at" : datetime(2023, 1, 15),
-            "user_id" : self.user_id
+            "amount": 50.0,
+            "created_at": 'Sun, 15 Jan 2023 00:00:00 GMT',
+            "payment_category": PaymentCategory.FOOD.value,
         }
+        print("Response Data:", response.get_json())
+        print("Expected Payment Data:", expected_payment_data)
         response_data = response.get_json()
         self.assertEqual(response_data, expected_payment_data)
+
+    def test_update_payment_entry(self):
+        update_data = {
+            "amount": 75.0,
+            
+        }

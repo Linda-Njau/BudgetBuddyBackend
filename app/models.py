@@ -47,6 +47,8 @@ class PaymentEntry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     amount = db.Column(db.Float, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    transaction_date = db.Column(db.Date, nullable=False)
     payment_category = db.Column(SQLEnum(PaymentCategory))
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)

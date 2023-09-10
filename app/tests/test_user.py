@@ -84,20 +84,27 @@ class TestUserEndpoints(unittest.TestCase):
             user_id = self.test_user.user_id
             payment_entry1 = PaymentEntry(
                 amount=50,
+                transaction_date = (2023, 1, 10),
                 payment_category=PaymentCategory.FOOD,
                 created_at=datetime(2023, 1, 15),
+                updated_at=datetime(2023, 1, 15),
+                
                 user_id=user_id
             )
             payment_entry2 = PaymentEntry(
                 amount=75,
+                transaction_date = (2023, 2, 10),
                 payment_category=PaymentCategory.TRAVEL,
                 created_at=datetime(2023, 2, 20),
+                updated_at =datetime(2023, 2, 20),
                 user_id=user_id
             )
             payment_entry3 = PaymentEntry(
                 amount=100,
+                transaction_date = (2023, 1, 10),
                 payment_category=PaymentCategory.FOOD,
                 created_at=datetime(2023, 1, 20),
+                updated_at=datetime(2023, 1, 20),
                 user_id=user_id
             )
             db.session.add(payment_entry1)
