@@ -86,7 +86,9 @@ class UserService:
             {
                 "id": payment_entry.id,
                 "amount": payment_entry.amount,
+                "transaction_date": payment_entry.transaction_date,
                 "created_at": payment_entry.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+                "updated_at": payment_entry.created_at.strftime('%Y-%m-%d %H:%M:%S'),
                 "payment_category": payment_entry.payment_category.value,
                 "user_id": payment_entry.user_id,
             }
