@@ -11,7 +11,7 @@ def create_payment_entry():
     response = payment_entry_service.create_payment_entry(data)
     return jsonify(response), 201
 
-@payment_entries.route('/<int:payment_entry_id>', methods=['GET'], strict_slashes=False)
+@payment_entries.route('/payment_entries/<int:payment_entry_id>', methods=['GET'], strict_slashes=False)
 def get_payment_entry(payment_entry_id):
     payment_entry = payment_entry_service.get_payment_entry(payment_entry_id)
     return jsonify(payment_entry), 200

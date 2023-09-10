@@ -35,19 +35,20 @@ class PaymentEntryService:
             }, 201
 
     def get_payment_entry(self, payment_entry_id):
-        payment_entry = PaymentEntry.query.get(payment_entry_id)
+        with db.session() as session:
+            payment_entry = session.get(PaymentEntry, payment_entry_id)
         if not payment_entry:
             return {"error": "payment entry not found"}, 404
         payment_entry_data = {
-            'id': payment_entry.id,
             'amount': payment_entry.amount,
-            'payment_date': payment_entry.payment_date,
-            'category_name': payment_entry.payment_category.category_name
+            'created_at': payment_entry.created_at,
+            'payment_category': payment_entry.payment_category.value
         }
         return payment_entry_data
     
     def update_payment_entry(self, payment_entry_id, data):
-        payment_entry = PaymentEntry.query.get(payment_entry_id)
+        with db.session() as session:
+            payment_entry = session.get(PaymentEntry, payment_entry_id)
         if not payment_entry:
             return {'error': 'payment entry not found'}, 404
         new_amount = data.get('amount')

@@ -14,5 +14,5 @@ class TestingConfig(BaseConfig):
     SQLALCHEMY_ECHO = False
 Config = {
     "testing": TestingConfig,
-    "development": TestingConfig,
+    "development": DevelopmentConfig,
 }
