@@ -9,7 +9,13 @@ class PaymentEntryService:
         """Create a new payment entry"""
         amount = data.get('amount')
         payment_category_value = data.get('payment_category')
+        transaction_date_str = data.get('transaction_date')
         user_id = data.get('user_id')  ##needs to be updated to factor in current user
+        
+        try:
+            transaction_date = datetime.strptime(transaction_date_str, '%Y-%m-%d').date()
+        except ValueError:
+            return {'error': 'Invalid transaction date format.Please use YYYY-MM-DD format.'}, 400
         if not amount or not payment_category_value:
             return {'error': 'missing amount or payment_category_id'}, 400
         
@@ -24,6 +30,7 @@ class PaymentEntryService:
         new_payment_entry = PaymentEntry(
             amount=amount,
             payment_category=payment_category,
+            transaction_date=transaction_date,
             user_id=user_id
         )
         db.session.add(new_payment_entry)
@@ -39,9 +46,11 @@ class PaymentEntryService:
             payment_entry = session.get(PaymentEntry, payment_entry_id)
         if not payment_entry:
             return {"error": "payment entry not found"}, 404
+        
+        formatted_transaction_date = payment_entry.transaction_date.strftime("%Y-%m-%d")
         payment_entry_data = {
             'amount': payment_entry.amount,
-            'created_at': payment_entry.created_at,
+            'transaction_date': formatted_transaction_date,
             'payment_category': payment_entry.payment_category.value
         }
         return payment_entry_data
@@ -51,22 +60,13 @@ class PaymentEntryService:
             payment_entry = session.get(PaymentEntry, payment_entry_id)
         if not payment_entry:
             return {'error': 'payment entry not found'}, 404
-        new_amount = data.get('amount')
-        new_payment_date = data.get('payment_date')
-        new_payment_category_name = data.get('payment_category_name')
-        
-        if new_amount is not None and new_payment_date is not None:
-            payment_entry.amount = new_amount
-            payment_entry.payment_date = new_payment_date
-            
-        if new_payment_category_name is not None:
-            new_category = PaymentCategory.query.filter_by(category_name=new_payment_category_name).first()
-            if not new_category:
-                return {'error': 'Invalid payment category name'}, 400
-            payment_entry.payment_category_id = new_category.id
-            
+        payment_entry.update(
+            amount=data.get('amount'),
+            transaction_date=data.get('transaction_date'),
+            payment_category=data.get('payment_category')
+        )
         db.session.commit()
-        return {'message': 'Payment category was successfully updated'}
+        return payment_entry.to_dict()
     
     def delete_payment_entry(self, payment_entry_id):
         payment_entry = PaymentEntry.query.get(payment_entry_id)
