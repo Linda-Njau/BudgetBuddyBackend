@@ -27,9 +27,9 @@ class UserService:
         
             print(f"User {username} created successfully") 
             return {'message' : "Successfully created"}, 201
-        except Exception as e:
+        except Exception as error:
             db.session.rollback()
-            print(f"Error creating user {username}: {str(e)}")
+            print(f"Error creating user {username}: {str(error)}")
             return {'message' : 'Error creating user'}, 500
     
     def get_user(self, user_id):
@@ -59,6 +59,20 @@ class UserService:
             )
             db.session.commit()
             return user.to_dict()
+    
+    def patch_user(self, user_id, data):
+        with db.session() as session:
+            user = session.get(User, user_id)
+            if not user:
+                return{"error": "User not found"}, 404
+            if 'email' in data:
+                user.email = (data['email'])
+            if 'password' in data:
+                user.password = (data['password'])
+            if 'username' in data:
+                user.username = (data['username'])
+            db.session.commit()
+            return {"message": "User updated successfully"}, 200
     
     def delete_user(self, user_id):
         """Delete a user by id."""

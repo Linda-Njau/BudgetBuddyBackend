@@ -16,6 +16,13 @@ def get_payment_entry(payment_entry_id):
     payment_entry = payment_entry_service.get_payment_entry(payment_entry_id)
     return jsonify(payment_entry), 200
 
+@payment_entries.route('/users/<int:user_id>/payment_entries', methods=['GET'], strict_slashes=False)
+def get_payment_entries(user_id):
+    payment_category = request.args.get('payment_category')
+    month = request.args.get('month')
+    payment_entries = payment_entry_service.get_payment_entries(user_id, payment_category, month)
+    return jsonify(payment_entries)
+
 @payment_entries.route('/payment_entries/<int:payment_entry_id>', methods=['PUT'], strict_slashes=False)
 def update_payment_entry(payment_entry_id):
     data = request.get_json()

@@ -1,6 +1,7 @@
+from re import T
 from ...models import PaymentEntry, PaymentCategory
 from ... import db
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class PaymentEntryService:
     """Service for interacting with the payment entry endpoints"""
@@ -55,24 +56,68 @@ class PaymentEntryService:
         }
         return payment_entry_data
     
+    def get_payment_entries(self, user_id, payment_category=None, month=None):
+        """Returns all payment entries for the user by user_id
+            filter by payment_category and month if provided
+        """
+        user_payment_entries_query = PaymentEntry.query.filter_by(user_id=user_id)
+        if payment_category:
+            user_payment_entries_query = user_payment_entries_query.filter(PaymentEntry.payment_category == payment_category)
+        if month:
+            user_payment_entries_query = user_payment_entries_query.filter(db.func.extract('month', PaymentEntry.created_at) == month)    
+        user_payment_entries = user_payment_entries_query.all()
+        payment_entries = [
+            {
+                "id": payment_entry.id,
+                "amount": payment_entry.amount,
+                "transaction_date": payment_entry.transaction_date.strftime("%Y-%m-%d"),
+                "payment_category": payment_entry.payment_category.value,
+            }
+            for payment_entry in user_payment_entries
+        ]
+        return payment_entries
+    
+
     def update_payment_entry(self, payment_entry_id, data):
         with db.session() as session:
             payment_entry = session.get(PaymentEntry, payment_entry_id)
-        if not payment_entry:
-            return {'error': 'payment entry not found'}, 404
-        payment_entry.update(
-            amount=data.get('amount'),
-            transaction_date=data.get('transaction_date'),
-            payment_category=data.get('payment_category')
-        )
-        db.session.commit()
-        return payment_entry.to_dict()
+            if not payment_entry:
+                return {'error': 'payment entry not found'}, 404
+            transaction_date_str = data.get('transaction_date')
+            transaction_date = datetime.strptime(transaction_date_str, '%Y-%m-%d').date()
+            payment_entry.update(
+                amount=data.get('amount'),
+                transaction_date=transaction_date,
+                payment_category=data.get('payment_category')
+            )
+            db.session.commit()
     
+    def patch_payment_entry(self, payment_entry_id, data):
+        with db.session() as session:
+            payment_entry = session.get(PaymentEntry, payment_entry_id)
+            if not payment_entry:
+                return{"message": "Payment Entry not found"}, 404
+            
+            time_elapsed = datetime.utcnow() - payment_entry.created_at
+            time_limit = timedelta(hours=24)
+            if time_elapsed > time_limit:
+                return {"message": "Payment Entry cannot be edited after 24 hours"}, 403
+            
+            if 'amount' in data:
+                payment_entry.amount = (data['amount'])
+            if 'transaction_date' in data:
+                payment_entry.transaction_date = (data['transaction_date'])
+            if 'payment_category' in data:
+                payment_entry.payment_category = (data['payment_category'])
+            db.session.commit()
+            return {"message": "Payment entry updated successfully"}, 200
+
     def delete_payment_entry(self, payment_entry_id):
-        payment_entry = PaymentEntry.query.get(payment_entry_id)
-        if not payment_entry:
-            return {'error': 'Payment entry not found'}, 404
-        db.session.delete(payment_entry)
-        db.session.commit()
-        
-        return {'message': 'Payment entry was successfully deleted'}
+        with db.session() as session:
+            payment_entry = session.get(PaymentEntry, payment_entry_id)
+            if not payment_entry:
+                return {'error': 'Payment entry not found'}, 404
+            db.session.delete(payment_entry)
+            db.session.commit()
+            
+            return {'message': 'Payment entry was successfully deleted'}
