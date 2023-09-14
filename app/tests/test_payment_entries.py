@@ -2,7 +2,7 @@ import unittest
 from .. import create_app
 from app import db
 from app.models import User, PaymentEntry, PaymentCategory
-from datetime import datetime
+from datetime import datetime, date
 
 
 class TestPaymentEntriesEndpoints(unittest.TestCase):
@@ -12,8 +12,8 @@ class TestPaymentEntriesEndpoints(unittest.TestCase):
         
         with self.app.app_context():
             self.test_user = User(
-                username="test_user",
-                email="testuser@example.com",
+                username="test_user5",
+                email="testuser5@example.com",
                 password_hash = "testpassword"
             )
             db.session.add(self.test_user)
@@ -21,18 +21,19 @@ class TestPaymentEntriesEndpoints(unittest.TestCase):
             self.user_id = self.test_user.user_id
             
             self.test_payment_entry = PaymentEntry(
-                amount=50,
+                amount=50.0,
+                transaction_date=date(2023, 1, 10),
                 payment_category=PaymentCategory.FOOD,
-                created_at=datetime(2023, 1, 15),
                 user_id=self.user_id
             )
             db.session.add(self.test_payment_entry)
             db.session.commit()
-            self.test_payment_entry_id = self.test_payment_entry.id 
+            self.test_payment_entry_id = self.test_payment_entry.id
 
     def tearDown(self):
         with self.app.app_context():
             db.session.remove()
+            db.session.commit()
             db.drop_all()
             
             
@@ -40,9 +41,11 @@ class TestPaymentEntriesEndpoints(unittest.TestCase):
         with self.app.app_context():
             payment_entry_data = {
                 'amount': 50,
+                'transaction_date': '2023-1-10',
                 'payment_category': PaymentCategory.FOOD.value,
                 'user_id': self.user_id
             }
+            print(f"transaction_date type: {type(payment_entry_data['transaction_date'])}")
             response = self.client.post('/payment_entries', json=payment_entry_data)
             self.assertEqual(response.status_code, 201)
             response_data = response.get_json()
@@ -64,16 +67,27 @@ class TestPaymentEntriesEndpoints(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         expected_payment_data = {
             "amount": 50.0,
-            "created_at": 'Sun, 15 Jan 2023 00:00:00 GMT',
-            "payment_category": PaymentCategory.FOOD.value,
+            "transaction_date": "2023-01-10",
+            "payment_category": PaymentCategory.FOOD.value
         }
         print("Response Data:", response.get_json())
         print("Expected Payment Data:", expected_payment_data)
-        response_data = response.get_json()
+        response_data = response.getpayment_category
         self.assertEqual(response_data, expected_payment_data)
 
     def test_update_payment_entry(self):
-        update_data = {
-            "amount": 75.0,
-            
-        }
+        with self.app.app_context():
+            update_data = {
+                "amount": 75.0,
+                "transaction_date" : "2023-01-11",
+                "payment_category": PaymentCategory.TRAVEL.value
+            }
+            response = self.client.put(f'/payment_entries/{self.test_payment_entry_id}', json=(update_data))
+            self.assertEqual(response.status_code, 200)
+            with db.session() as session:
+                updated_payment_entry = session.get(PaymentEntry, self.test_payment_entry_id)
+                self.assertEqual(updated_payment_entry.user_id, self.user_id)
+                self.assertEqual(updated_payment_entry.amount, 75.0)
+                self.assertEqual(updated_payment_entry.transaction_date, "2023-01-11")
+                self.assertEqual(updated_payment_entry.payment_category, PaymentCategory.TRAVEL)
+                

@@ -1,7 +1,7 @@
 import sqlalchemy
 
 # Replace '<your-database-url>' with your actual database URL
-database_url = 'mysql+mysqlconnector://root:root@localhost/unusual_spending'
+database_url = 'sqlite:///test_database.db'
 
 
 try:

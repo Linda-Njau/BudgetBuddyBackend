@@ -81,16 +81,12 @@ class UserService:
         if month:
             user_payment_entries_query = user_payment_entries_query.filter(db.func.extract('month', PaymentEntry.created_at) == month)    
         user_payment_entries = user_payment_entries_query.all()
-        
         payment_entries = [
             {
                 "id": payment_entry.id,
                 "amount": payment_entry.amount,
-                "transaction_date": payment_entry.transaction_date,
-                "created_at": payment_entry.created_at.strftime('%Y-%m-%d %H:%M:%S'),
-                "updated_at": payment_entry.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+                "transaction_date": payment_entry.transaction_date.strftime("%Y-%m-%d"),
                 "payment_category": payment_entry.payment_category.value,
-                "user_id": payment_entry.user_id,
             }
             for payment_entry in user_payment_entries
         ]

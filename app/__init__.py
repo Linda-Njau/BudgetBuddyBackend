@@ -30,6 +30,7 @@ def create_app(environment: str = 'development'):
     if environment == 'testing':
         with app.app_context():
             create_database(app)
+    
     return app
 
 def create_database(app):

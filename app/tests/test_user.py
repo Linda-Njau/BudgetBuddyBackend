@@ -2,7 +2,7 @@ import unittest
 from .. import create_app
 from app.models import User, PaymentCategory, PaymentEntry
 from app import db
-from datetime import datetime
+from datetime import datetime, date
 
 flask_app = create_app(environment="testing")
 
@@ -11,11 +11,10 @@ class TestUserEndpoints(unittest.TestCase):
     def setUp(self):
         self.app = create_app(environment="testing")
         self.client = self.app.test_client()
-        
         with self.app.app_context():
             self.test_user = User(
-                username="test_user",
-                email="testuser@example.com",
+                username="test_user1",
+                email="testuser1@example.com",
                 password_hash = "testpassword"
             )
             db.session.add(self.test_user)
@@ -25,9 +24,16 @@ class TestUserEndpoints(unittest.TestCase):
     def tearDown(self):
         with self.app.app_context():
             db.session.remove()
+            db.session.commit()
             db.drop_all()
             
     def test_create_user(self):
+        with self.app.app_context():
+            existing_users = User.query.all()
+            print("Existing users in the database:")
+            for user in existing_users:
+                print(f"User ID: {user.user_id}, Username: {user.username}, Email: {user.email}")
+
         user_data = {
             'email': 'testuser2@example.com',
             'username': 'testuser2',
@@ -47,8 +53,8 @@ class TestUserEndpoints(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         expected_user_data = {
             'user_id': self.user_id,
-            'username': 'test_user',
-            'email': 'testuser@example.com'
+            'username': 'test_user1',
+            'email': 'testuser1@example.com'
         }
         response_data = response.get_json()
         self.assertEqual(response_data, expected_user_data)
@@ -84,7 +90,7 @@ class TestUserEndpoints(unittest.TestCase):
             user_id = self.test_user.user_id
             payment_entry1 = PaymentEntry(
                 amount=50,
-                transaction_date = (2023, 1, 10),
+                transaction_date=date(2023, 1, 10),
                 payment_category=PaymentCategory.FOOD,
                 created_at=datetime(2023, 1, 15),
                 updated_at=datetime(2023, 1, 15),
@@ -93,7 +99,7 @@ class TestUserEndpoints(unittest.TestCase):
             )
             payment_entry2 = PaymentEntry(
                 amount=75,
-                transaction_date = (2023, 2, 10),
+                transaction_date =date(2023, 2, 10),
                 payment_category=PaymentCategory.TRAVEL,
                 created_at=datetime(2023, 2, 20),
                 updated_at =datetime(2023, 2, 20),
@@ -101,7 +107,7 @@ class TestUserEndpoints(unittest.TestCase):
             )
             payment_entry3 = PaymentEntry(
                 amount=100,
-                transaction_date = (2023, 1, 10),
+                transaction_date =date(2023, 1, 10),
                 payment_category=PaymentCategory.FOOD,
                 created_at=datetime(2023, 1, 20),
                 updated_at=datetime(2023, 1, 20),
