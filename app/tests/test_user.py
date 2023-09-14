@@ -84,7 +84,22 @@ class TestUserEndpoints(unittest.TestCase):
                 response_data = response.get_json()
                 self.assertEqual(response_data['message'], 'User deleted successfully')
 
-            
+    def test_patch_user(self):
+        with self.app.app_context():
+            patch_data = {
+                "username": "patchuser",
+                "email": "patchuser@example.com"
+            }
+            response = self.client.patch(f'/users/{self.user_id}', json=patch_data)
+            self.assertEqual(response.status_code, 200)
+            with db.session() as session:
+                patched_user = session.get(User, self.user_id)
+                self.assertEqual(patched_user.user_id, self.user_id)
+                self.assertEqual(patched_user.username, "patchuser")
+                self.assertEqual(patched_user.password_hash, "testpassword")
+                self.assertEqual(patched_user.email, "patchuser@example.com")
+    
+    
     def test_get_payment_entries(self):
         with self.app.app_context():
             user_id = self.test_user.user_id
