@@ -52,3 +52,17 @@ class PaymentEntry(db.Model):
     payment_category = db.Column(SQLEnum(PaymentCategory))
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
+
+    def to_dict(self):
+        return dict(id=self.id, amount=self.amount, created_at=self.created_at,
+                    updated_at=self.updated_at, transaction_date=self.transaction_date, payment_category=self.payment_category)
+        
+    def update(self, amount=None, transaction_date=None, payment_category=None):
+        if amount:
+            self.amount = amount
+            
+        if transaction_date:
+            self.transaction_date = transaction_date
+            
+        if payment_category:
+            self.payment_category = payment_category
