@@ -110,7 +110,7 @@ class TestUserEndpoints(unittest.TestCase):
                 created_at=datetime(2023, 1, 15),
                 updated_at=datetime(2023, 1, 15),
                 
-                user_id=user_id
+                user_id=self.test_user.user_id
             )
             payment_entry2 = PaymentEntry(
                 amount=75,
@@ -171,4 +171,3 @@ class TestUserEndpoints(unittest.TestCase):
             response_data = response.get_json()
             print("Response Data:", response_data)
             self.assertEqual(len(response_data), 2)
-            
