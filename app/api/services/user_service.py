@@ -85,24 +85,4 @@ class UserService:
         
         return {'message': 'User deleted successfully'}
 
-    def get_payment_entries(self, user_id, payment_category=None, month=None):
-        """Returns all payment entries for the user by user_id
-            filter by payment_category and month if provided
-        """
-        user_payment_entries_query = PaymentEntry.query.filter_by(user_id=user_id)
-        if payment_category:
-            user_payment_entries_query = user_payment_entries_query.filter(PaymentEntry.payment_category == payment_category)
-        if month:
-            user_payment_entries_query = user_payment_entries_query.filter(db.func.extract('month', PaymentEntry.created_at) == month)    
-        user_payment_entries = user_payment_entries_query.all()
-        payment_entries = [
-            {
-                "id": payment_entry.id,
-                "amount": payment_entry.amount,
-                "transaction_date": payment_entry.transaction_date.strftime("%Y-%m-%d"),
-                "payment_category": payment_entry.payment_category.value,
-            }
-            for payment_entry in user_payment_entries
-        ]
-        return payment_entries
     
