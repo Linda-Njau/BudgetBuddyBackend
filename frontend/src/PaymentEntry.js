@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { postData } from './httpService';
 import DatePicker from 'react-datepicker'; 
 import 'react-datepicker/dist/react-datepicker.css';
+import PropTypes from 'prop-types';
 
-const PaymentEntry = () => {
+const PaymentEntry = ({ user_id }) => {
     const [amount, setAmount ] = useState('');
     const [transactionDate, setTransactionDate] = useState(new Date());
     const [paymentCategory, setPaymentCategory] = useState('FOOD');
@@ -16,6 +17,7 @@ const PaymentEntry = () => {
                 amount: parseFloat(amount), 
                 transactionDate: transactionDate.toISOString(),  
                 paymentCategory: paymentCategory,
+                user_id: user_id, //eslint-disable-line
             };
             const response = await postData('/payment_entries', payload);
             console.log('Payment Entry Sucess: ', response);
@@ -25,7 +27,6 @@ const PaymentEntry = () => {
             console.error('Payment Entry Failed:', error);
         }
     };
-
     return (
         <form onSubmit={handleSubmit}>
             <label>
@@ -59,6 +60,9 @@ const PaymentEntry = () => {
             <button type="submit">Submit</button>
         </form>
     );
+    PaymentEntry.propTypes = {
+        user_id: PropTypes.number.isRequired,
+      };
 };
 
 export default PaymentEntry

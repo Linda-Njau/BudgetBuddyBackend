@@ -1,11 +1,14 @@
 import React from 'react';
 import PaymentEntry from './PaymentEntry';
+import PaymentEntriesList from './PaymentEntriesList';
 
 function App() {
+  const user_id = 1;
   return (
     <div className="App">
       <h1>Budget Buddy</h1>
-      <PaymentEntry />
+      <PaymentEntry user_id={user_id}/>
+      <PaymentEntriesList user_id={user_id} />
     </div>
   );
 }

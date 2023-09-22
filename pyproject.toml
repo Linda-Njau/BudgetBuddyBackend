@@ -14,6 +14,7 @@ Werkzeug = "^2.3.7"
 flask-migrate = "^4.0.4"
 mysql-connector-python = "^8.0.27"
 sendgrid = "^6.10.0"
+flask-cors = "^4.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
