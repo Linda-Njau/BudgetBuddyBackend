@@ -10,9 +10,10 @@ class PaymentEntryService:
         """Create a new payment entry"""
         amount = data.get('amount')
         payment_category_value = data.get('payment_category')
-        transaction_date_str = data.get('transaction_date')
+        transaction_date_str = data.get('transactionDate')
         user_id = data.get('user_id')  ##needs to be updated to factor in current user
-        
+        if not transaction_date_str:
+            return {'error': 'Transaction date is missing or empty'}, 400
         try:
             transaction_date = datetime.strptime(transaction_date_str, '%Y-%m-%d').date()
         except ValueError:
