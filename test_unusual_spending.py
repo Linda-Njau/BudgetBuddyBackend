@@ -40,38 +40,25 @@ class TestUnusualSpending(unittest.TestCase):
     def setUp(self):
         self.mock_payment_entry_service = MockPaymentEntryService()
         self.mock_email_service = MockEmailService()
-        self.over_spending = OverSpending(self.mock_payment_entry_service, self.mock_email_service)
-
+        self.email_service_mock = MagicMock()
+        self.over_spending = OverSpending(self.mock_payment_entry_service, self.email_service_mock)
+        
     def test_with_overspending(self):
-        # Create a MagicMock instance for the email_service
-        email_service_mock = MagicMock()
-
-        # Create an instance of OverSpending with the mock email_service
-        over_spending = OverSpending(self.mock_payment_entry_service, email_service_mock)
-
-        result = over_spending.is_over_spending("42", payment_category=PaymentCategory.FOOD, month=datetime.utcnow().month)
-
-        # Now, you can make assertions on the email_service_mock
-        email_service_mock.send_email.assert_called_once()
+        result = self.over_spending.is_over_spending("42", payment_category=PaymentCategory.FOOD, month=datetime.utcnow().month)
+        self.email_service_mock.send_email.assert_called_once()
         self.assertTrue(result)
 
     def test_without_overspending(self):
-        email_service_mock = MagicMock()
-        over_spending = OverSpending(self.mock_payment_entry_service, email_service_mock)
-        result = over_spending.is_over_spending("21", payment_category=PaymentCategory.FOOD, month=datetime.utcnow().month)
-        email_service_mock.send_email.assert_not_called()
+        result = self.over_spending.is_over_spending("21", payment_category=PaymentCategory.FOOD, month=datetime.utcnow().month)
+        self.email_service_mock.send_email.assert_not_called()
         self.assertFalse(result)
 
     def test_over_spending_with_multiple_categories(self):
-        email_service_mock = MagicMock()
-        over_spending = OverSpending(self.mock_payment_entry_service, email_service_mock)
-        result = over_spending.is_over_spending("42", payment_category=None, month=datetime.utcnow().month)
-        email_service_mock.send_email.assert_called_once()
+        result = self.over_spending.is_over_spending("42", payment_category=None, month=datetime.utcnow().month)
+        self.email_service_mock.send_email.assert_called_once()
         self.assertTrue(result)
 
     def test_with_overspending_in_both_categories(self):
-        email_service_mock = MagicMock()
-        over_spending = OverSpending(self.mock_payment_entry_service, email_service_mock)
-        result = over_spending.is_over_spending("56", payment_category=None, month=datetime.utcnow().month)
-        email_service_mock.send_email.assert_called_once()
+        result = self.over_spending.is_over_spending("56", payment_category=None, month=datetime.utcnow().month)
+        self.email_service_mock.send_email.assert_called_once()
         self.assertTrue(result)

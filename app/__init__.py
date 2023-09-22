@@ -1,5 +1,6 @@
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 from .config import Config
 from os import path
 
@@ -15,6 +16,8 @@ def create_app(environment: str = 'development'):
     environment_config = Config[environment]
     app.config.from_object(environment_config)
     db.init_app(app)
+    
+    CORS(app)
     
     from .api.users import users
     from .api.payment_entry import payment_entries
