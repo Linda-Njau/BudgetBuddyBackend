@@ -6,6 +6,7 @@ const httpClient = axios.create({
 
 export const postData = async (endpoint, data) => {
     try {
+        console.log('POST Data:', data);
         const response = await httpClient.post(endpoint, data);
         return response.data;
     } catch(error) {

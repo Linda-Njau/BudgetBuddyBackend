@@ -7,20 +7,25 @@ import PropTypes from 'prop-types';
 const PaymentEntry = ({ user_id }) => {
     const [amount, setAmount ] = useState('');
     const [transactionDate, setTransactionDate] = useState(new Date());
-    const [paymentCategory, setPaymentCategory] = useState('FOOD');
+    const [payment_category, setPaymentCategory] = useState('FOOD');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('Submit button clicked');
+        const formattedDate = transactionDate.toISOString().split('T')[0];
+        console.log('Formatted Date:', formattedDate);
         try {
             const payload = { 
                 amount: parseFloat(amount), 
-                transactionDate: transactionDate.toISOString(),  
-                paymentCategory: paymentCategory,
-                user_id: user_id, //eslint-disable-line
+                transactionDate: formattedDate,  
+                payment_category: payment_category,
+                user_id: user_id,
             };
+            console.log('Amount:', amount);
+            console.log('Payment Category:', payment_category);
+            console.log('the complete payload: ', payload)
             const response = await postData('/payment_entries', payload);
-            console.log('Payment Entry Sucess: ', response);
+            console.log('Server Resonse: ', response);
             setAmount('');
             setTransactionDate(new Date());
         } catch (error) {
@@ -39,7 +44,7 @@ const PaymentEntry = ({ user_id }) => {
             <label>
                 Payment Category:
                 <select
-                  value={paymentCategory}
+                  value={payment_category}
                   onChange={(e) => setPaymentCategory(e.target.value)}
                 >
                     <option value="FOOD">FOOD</option>
@@ -54,7 +59,7 @@ const PaymentEntry = ({ user_id }) => {
                 <DatePicker
                   selected={transactionDate}
                   onChange={(date) => setTransactionDate(date)}
-                  dateFormat="yyyy-dd-MM"
+                  dateFormat="yyyy-MM-dd"
                 />
             </label>
             <button type="submit">Submit</button>
