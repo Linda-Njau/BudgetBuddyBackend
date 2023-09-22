@@ -19,7 +19,7 @@ class PaymentEntryService:
         except ValueError:
             return {'error': 'Invalid transaction date format.Please use YYYY-MM-DD format.'}, 400
         if not amount or not payment_category_value:
-            return {'error': 'missing amount or payment_category_id'}, 400
+            return {'error': 'missing amount or payment category value'}, 400
         
         payment_category = None
         for enum_member in PaymentCategory:
