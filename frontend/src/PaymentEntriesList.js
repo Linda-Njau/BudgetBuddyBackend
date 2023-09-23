@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchPaymentEntries } from './httpService';
 
-const PaymentEntriesList = ({ user_id }) => {
+const PaymentEntriesList = ({ userId }) => {
   console.log('PaymentEntriesList component mounted');
   const [allPaymentEntries, setAllPaymentEntries] = useState([]);
   const [filteredPaymentEntries, setFilteredPaymentEntries] = useState([]);
@@ -17,8 +17,13 @@ const PaymentEntriesList = ({ user_id }) => {
       // Check if entry.paymentCategory and entry.transactionDate exist before using includes
       const matchesCategory =
         entry.payment_category && entry.payment_category.includes(paymentCategory);
-      const matchesMonth =
-        entry.transaction_date && entry.transaction_date.includes(month);
+      let matchesMonth = false;
+      if (entry.transaction_date) {
+        const date = new Date(entry.transaction_date);
+        const entryMonth = date.getMonth() + 1;
+        const formattedEntryMonth = String(entryMonth).padStart(2, '0');
+        matchesMonth = formattedEntryMonth === month;
+      }
       console.log('Matches Category:', matchesCategory);
       console.log('Matches Month:', matchesMonth);
       return (matchesCategory || !paymentCategory) && (matchesMonth || !month);
@@ -30,7 +35,7 @@ const PaymentEntriesList = ({ user_id }) => {
   const handleReset = async () => {
     try {
       // Fetch all payment entries without filters
-      const entries = await fetchPaymentEntries(user_id, '', '');
+      const entries = await fetchPaymentEntries(userId, '', '');
       setAllPaymentEntries(entries);
       setFilteredPaymentEntries([]); // Clear filtered entries
     } catch (error) {
@@ -42,7 +47,7 @@ const PaymentEntriesList = ({ user_id }) => {
     // Fetch all payment entries without filters when the component mounts
     const fetchEntries = async () => {
       try {
-        const entries = await fetchPaymentEntries(user_id, '', '');
+        const entries = await fetchPaymentEntries(userId, '', '');
         setAllPaymentEntries(entries);
         console.log('API Response fetch all entries:', entries);
       } catch (error) {
@@ -50,7 +55,7 @@ const PaymentEntriesList = ({ user_id }) => {
       }
     };
     fetchEntries();
-  }, [user_id]);
+  }, [userId]);
 
   // Apply filters whenever paymentCategory or month change
   useEffect(() => {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { postData } from './httpService';
 
-const UserCreation = () => {
+const UserSignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
@@ -56,4 +56,4 @@ return (
     </div>
 );
 };
-export default UserCreation;
+export default UserSignUp;

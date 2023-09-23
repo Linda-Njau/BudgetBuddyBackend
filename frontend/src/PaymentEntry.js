@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import PropTypes from 'prop-types';
 
-const PaymentEntry = ({ user_id }) => {
+const PaymentEntry = ({ userId }) => {
     const [amount, setAmount ] = useState('');
     const [transactionDate, setTransactionDate] = useState(new Date());
     const [payment_category, setPaymentCategory] = useState('FOOD');
@@ -19,7 +19,7 @@ const PaymentEntry = ({ user_id }) => {
                 amount: parseFloat(amount), 
                 transactionDate: formattedDate,  
                 payment_category: payment_category,
-                user_id: user_id,
+                user_id: userId,
             };
             console.log('Amount:', amount);
             console.log('Payment Category:', payment_category);
@@ -66,7 +66,7 @@ const PaymentEntry = ({ user_id }) => {
         </form>
     );
     PaymentEntry.propTypes = {
-        user_id: PropTypes.number.isRequired,
+        userId: PropTypes.number.isRequired,
       };
 };
 
