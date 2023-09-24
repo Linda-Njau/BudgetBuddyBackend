@@ -18,12 +18,15 @@ def create_app(environment: str = 'development'):
     db.init_app(app)
     
     CORS(app)
-    
+    from .api.auth import auth
     from .api.users import users
     from .api.payment_entry import payment_entries
     
+    
+    app.register_blueprint(auth)
     app.register_blueprint(users)
     app.register_blueprint(payment_entries)
+    
     # app.register_blueprint(payment_categories)
     
     @app.before_request
