@@ -1,0 +1,41 @@
+body {
+    font_family: Arial, sans-serif;
+    background-color: #f2f0f7;
+    color: #333;
+}
+
+.header {
+    background-color: #7146db;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 24px;
+}
+
+.navbar {
+    background-color: #967adc;
+    padding: 1rem;
+}
+
+.navbar button{
+    background-color: #5f42a0;
+    color: white;
+    border: none;
+    padding: 0.5 rem 1 rem;
+    margin: 0 0.5rem;
+    cursor: pointer;
+    font-size: 16px;
+
+}
+
+.navbar button:hover {
+    background-color: #432c73;
+}
+
+.footer {
+    background-color: #7146db;
+    color: white;
+    text-align: center;
+    padding: 1 rem 0;
+    font-size: 14px;
+}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { postData } from './httpService';
+import './Login.css';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -16,17 +17,30 @@ const Login = () => {
         }
     };
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Username:
-                <input type="text" value={username} onChange={(e) =>setUsername(e.target.value)}/>
-            </label>
-            <label>
-                Password:
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-            </label>
-            <button type="submit">Login</button>
+        <div className="login-container">
+        <form className="login-form" onSubmit={handleSubmit}>
+          <label className="login-label">
+            Username:
+            <input 
+              className="login-input"
+              type="text" 
+              value={username} 
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </label>
+          <label className="login-label">
+            Password:
+            <input 
+              className="login-input"
+              type="password" 
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
+          <button className="login-button" type="submit">Login</button>
         </form>
+      </div>
     );
-};
+  };
+  
 export default Login;
