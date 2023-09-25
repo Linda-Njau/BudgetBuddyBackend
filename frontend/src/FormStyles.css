@@ -1,11 +1,11 @@
-.login-container {
+.form-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 80vh;
   }
   
-  .login-form {
+  .form-box {
     border: 1px solid #ccc;
     padding: 20px;
     border-radius: 5px;
@@ -13,23 +13,23 @@
     width: 300px;
   }
   
-  .login-label {
+  .form-label {
     display: block;
     margin-bottom: 15px;
   }
   
-  .login-input {
+  .form-input {
     display: block;
     width: 80%;
-    padding: 4px;
-    margin-top: 5px auto;
+    margin: 5px auto;
+    padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
   }
   
-  .login-button {
+  .form-button {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color:  #7146db;;
     border: none;
     color: white;
     border-radius: 4px;

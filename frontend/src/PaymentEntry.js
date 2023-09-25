@@ -33,38 +33,51 @@ const PaymentEntry = ({ userId }) => {
         }
     };
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Amount:
-                <input type="number"
-                value={amount}
-                onChange={(e) =>setAmount(e.target.value)}
-                />
-            </label>
-            <label>
-                Payment Category:
-                <select
-                  value={payment_category}
-                  onChange={(e) => setPaymentCategory(e.target.value)}
-                >
-                    <option value="FOOD">FOOD</option>
-                    <option value="TRAVEL">TRAVEL</option>
-                    <option value="UTILITIES">UTILITIES</option>
-                    <option value="TRANSPORTATION">TRANSPORT</option>
-                    <option value="ENTERTAINMENT">ENTERTAINMENT</option>
-                  </select>
-            </label>
-            <label>
-                Transaction Date:
-                <DatePicker
-                  selected={transactionDate}
-                  onChange={(date) => setTransactionDate(date)}
-                  dateFormat="yyyy-MM-dd"
-                />
-            </label>
-            <button type="submit">Submit</button>
-        </form>
-    );
+            <div className="payment-form-container">
+              <h2>Create Payment Entry</h2>
+              <p>Recording every payment entry allows for more accurate results.</p>
+              <img src="path/to/your/icon.png" alt="Description Icon" />
+          
+              <form className="payment-form" onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label>
+                    Amount:
+                    <input type="number"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    />
+                  </label>
+                  <small>Enter the amount you spent in numbers.</small>
+                </div>
+          
+                <div className="form-group">
+                  <label>
+                    Payment Category:
+                    <select value={payment_category} onChange={(e) => setPaymentCategory(e.target.value)}>
+                      {/* ... options here ... */}
+                    </select>
+                  </label>
+                  <small>Select the appropriate category for this payment.</small>
+                </div>
+          
+                <div className="form-group">
+                  <label>
+                    Transaction Date:
+                    <DatePicker
+                      selected={transactionDate}
+                      onChange={(date) => setTransactionDate(date)}
+                      dateFormat="yyyy-MM-dd"
+                    />
+                  </label>
+                  <small>Choose the date when the transaction was made.</small>
+                </div>
+          
+                <button type="submit">Submit</button>
+              </form>
+            </div>
+          );
+          
+
     PaymentEntry.propTypes = {
         userId: PropTypes.number.isRequired,
       };

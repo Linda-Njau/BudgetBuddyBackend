@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { postData } from './httpService';
 import './Login.css';
+import './FormStyles.css';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -17,29 +18,29 @@ const Login = () => {
         }
     };
     return (
-        <div className="login-container">
-        <form className="login-form" onSubmit={handleSubmit}>
-          <label className="login-label">
-            Username:
-            <input 
-              className="login-input"
-              type="text" 
-              value={username} 
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </label>
-          <label className="login-label">
-            Password:
-            <input 
-              className="login-input"
-              type="password" 
-              value={password} 
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
-          <button className="login-button" type="submit">Login</button>
-        </form>
-      </div>
+      <div className="form-container">
+      <form className="form-box" onSubmit={handleSubmit}>
+        <label className="form-label">
+          Username:
+          <input 
+            className="form-input"
+            type="text" 
+            value={username} 
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </label>
+        <label className="form-label">
+          Password:
+          <input 
+            className="form-input"
+            type="password" 
+            value={password} 
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </label>
+        <button className="form-button" type="submit">Login</button>
+      </form>
+    </div>    
     );
   };
   
