@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 5, in <module>
+    from flask_crontab import crontab
+ImportError: cannot import name 'crontab' from 'flask_crontab' (/home/linda/.cache/pypoetry/virtualenvs/unusual-spending-ujsbtPf3-py3.10/lib/python3.10/site-packages/flask_crontab.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 49, in <module>
+    budget_monitor = BudgetMonitor(payment_entry_service, EmailService(), user_service)
+TypeError: EmailService.__init__() missing 2 required positional arguments: 'api_key' and 'from_email'
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 66, in <module>
+    @crontab.job(minute="42", hour="21")
+NameError: name 'crontab' is not defined. Did you mean: 'Crontab'?
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 67, in <module>
+    @crontab.job(minute="42", hour="21")
+NameError: name 'crontab' is not defined. Did you mean: 'Crontab'?

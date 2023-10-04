@@ -17,6 +17,12 @@ def get_user(user_id):
     user = user_service.get_user(user_id)
     return jsonify(user), 200
     
+
+@users.route('/users', methods=['GET'], strict_slashes=False)
+def get_users():
+    users = user_service.get_all_users()
+    return jsonify(users), 200
+
 @users.route('/users/<int:user_id>', methods=['PUT'], strict_slashes=False)
 def update_user(user_id):
     data = request.get_json()
