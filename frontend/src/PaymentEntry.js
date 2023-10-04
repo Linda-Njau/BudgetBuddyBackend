@@ -54,7 +54,11 @@ const PaymentEntry = ({ userId }) => {
                   <label>
                     Payment Category:
                     <select value={payment_category} onChange={(e) => setPaymentCategory(e.target.value)}>
-                      {/* ... options here ... */}
+                      <option value="FOOD">FOOD</option>
+                      <option value="TRAVEL">TRAVEL</option>
+                      <option value="UTILITIES">UTILITIES</option>
+                      <option value="TRANSPORT">TRANSPORT</option>
+                      <option value="ENTERTAINMENT">ENTERTAINMENT</option>
                     </select>
                   </label>
                   <small>Select the appropriate category for this payment.</small>

@@ -92,6 +92,20 @@ files = [
 Flask = ">=0.9"
 
 [[package]]
+name = "flask-crontab"
+version = "0.1.2"
+description = "Simple Flask scheduled tasks without extra daemons"
+optional = false
+python-versions = ">=3.5"
+files = [
+    {file = "flask-crontab-0.1.2.tar.gz", hash = "sha256:ec38074d7b5237df31b406576e9ccc79c924d8363dcba4e857830c4ec63a1185"},
+    {file = "flask_crontab-0.1.2-py2.py3-none-any.whl", hash = "sha256:8dbb325417d9c04d13c94f1f933c97267e0ef7a4358e08057dbb9910f0145188"},
+]
+
+[package.dependencies]
+flask = "*"
+
+[[package]]
 name = "flask-jwt-extended"
 version = "4.5.2"
 description = "Extended JWT integration with Flask"
@@ -558,4 +572,4 @@ watchdog = ["watchdog (>=2.3)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "8b1fc44870e4c140e242867211e89ad92b64cba136faf9af9e789ba92b4d97b7"
+content-hash = "a8d59af1678adc2d49bdf2964a52abc2182355ed7ffafd6fed5439b9d7557243"

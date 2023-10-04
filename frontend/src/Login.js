@@ -13,6 +13,7 @@ const Login = () => {
             const payload = { username, password };
             const response = await postData('/login', payload);
             localStorage.setItem('access_token', response.access_token);
+            localStorage.setItem('user_id', response.user_id);
         } catch (error) {
             console.error('Login Failed:', error);
         }

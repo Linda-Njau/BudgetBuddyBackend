@@ -7,7 +7,7 @@ import './styles.css';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('SignUp');
-  const userId = 1;
+  const userId = localStorage.getItem('user_id');
   return (
     <div id="app-container">
       <nav className="navbar">
