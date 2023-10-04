@@ -1,14 +1,16 @@
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_crontab import Crontab
 from flask_cors import CORS
 from .config import Config
 from os import path
 
 
+
 db = SQLAlchemy()
 from .models import *
 
-
+crontab = Crontab()
 DB_NAME = "database.db"
 def create_app(environment: str = 'development'):
     """Create a new flask application"""
@@ -18,6 +20,9 @@ def create_app(environment: str = 'development'):
     db.init_app(app)
     
     CORS(app)
+    
+    crontab.init_app(app)
+
     from .api.auth import auth
     from .api.users import users
     from .api.payment_entry import payment_entries

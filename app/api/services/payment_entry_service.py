@@ -1,4 +1,3 @@
-from re import T
 from ...models import PaymentEntry, PaymentCategory
 from ... import db
 from datetime import datetime, timedelta

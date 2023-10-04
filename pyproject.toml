@@ -16,6 +16,7 @@ mysql-connector-python = "^8.0.27"
 sendgrid = "^6.10.0"
 flask-cors = "^4.0.0"
 flask-jwt-extended = "^4.5.2"
+flask-crontab = "^0.1.2"
 
 
 [tool.poetry.group.dev.dependencies]
