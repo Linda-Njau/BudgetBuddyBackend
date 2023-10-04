@@ -50,17 +50,17 @@ class UserService:
         """Returns all user information"""
         with db.session() as session:
             users = session.query(User).all()
-        if not users:
-            return {'error': 'No users were found'}, 404
-        
-        users_data = []
-        for user in users:
-            user_data = {
-                'user_id': user.user_id,
-                'email': user.email,
-                'username': user.username,
-            }
-            users_data.append(user_data)
+            if not users:
+                return {'error': 'No users were found'}, 404
+            
+            users_data = []
+            for user in users:
+                user_data = {
+                    'user_id': user.user_id,
+                    'email': user.email,
+                    'username': user.username,
+                }
+                users_data.append(user_data)
             return users_data
 
     def update_user(self, user_id, data):

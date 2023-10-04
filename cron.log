@@ -22,3 +22,860 @@ Traceback (most recent call last):
   File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
     from app import crontab
 ImportError: cannot import name 'crontab' from 'app' (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py)
+/home/linda/.cache/pypoetry/virtualenvs/unusual-spending-ujsbtPf3-py3.10/bin/python3.10: can't open file '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/my_script.py': [Errno 2] No such file or directory
+0: command not found
+/home/linda/.cache/pypoetry/virtualenvs/unusual-spending-ujsbtPf3-py3.10/bin/python3: can't find '__main__' module in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending'
+/home/linda/.cache/pypoetry/virtualenvs/unusual-spending-ujsbtPf3-py3.10/bin/python3: can't find '__main__' module in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending'
+/home/linda/.cache/pypoetry/virtualenvs/unusual-spending-ujsbtPf3-py3.10/bin/python3: can't find '__main__' module in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending'
+/home/linda/.cache/pypoetry/virtualenvs/unusual-spending-ujsbtPf3-py3.10/bin/python3: can't find '__main__' module in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending'
+/home/linda/.cache/pypoetry/virtualenvs/unusual-spending-ujsbtPf3-py3.10/bin/python3: can't find '__main__' module in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending'
+/home/linda/.cache/pypoetry/virtualenvs/unusual-spending-ujsbtPf3-py3.10/bin/python3: can't find '__main__' module in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending'
+/home/linda/.cache/pypoetry/virtualenvs/unusual-spending-ujsbtPf3-py3.10/bin/python3: can't find '__main__' module in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending'
+/home/linda/.cache/pypoetry/virtualenvs/unusual-spending-ujsbtPf3-py3.10/bin/python3: can't find '__main__' module in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending'
+/home/linda/.cache/pypoetry/virtualenvs/unusual-spending-ujsbtPf3-py3.10/bin/python3: can't find '__main__' module in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending'
+/home/linda/.cache/pypoetry/virtualenvs/unusual-spending-ujsbtPf3-py3.10/bin/python3: can't find '__main__' module in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending'
+/home/linda/.cache/pypoetry/virtualenvs/unusual-spending-ujsbtPf3-py3.10/bin/python3: can't find '__main__' module in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending'
+/home/linda/.cache/pypoetry/virtualenvs/unusual-spending-ujsbtPf3-py3.10/bin/python3: can't find '__main__' module in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending'
+/home/linda/.cache/pypoetry/virtualenvs/unusual-spending-ujsbtPf3-py3.10/bin/python3: can't find '__main__' module in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending'
+/home/linda/.cache/pypoetry/virtualenvs/unusual-spending-ujsbtPf3-py3.10/bin/python3: can't find '__main__' module in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending'
+/home/linda/.cache/pypoetry/virtualenvs/unusual-spending-ujsbtPf3-py3.10/bin/python3.10: can't find '__main__' module in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/'
+/home/linda/.cache/pypoetry/virtualenvs/unusual-spending-ujsbtPf3-py3.10/bin/python3.10: can't find '__main__' module in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/'
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py', reloading
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py', reloading
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py', reloading
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py', reloading
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py', reloading
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py', reloading
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py', reloading
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py', reloading
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py', reloading
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py', reloading
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Restarting with stat
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py', reloading
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Debugger is active!
+ * Debugger PIN: 423-448-158
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Restarting with stat
+ * Restarting with stat
+ * Detected change in '/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py', reloading
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+ * Restarting with stat
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+ImportError: cannot import name 'scheduled_check_budget' from partially initialized module 'main' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 7, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+ImportError: cannot import name 'crontab' from partially initialized module 'run' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py", line 6, in <module>
+    from main import scheduled_check_budget
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from run import crontab
+ImportError: cannot import name 'crontab' from partially initialized module 'run' (most likely due to a circular import) (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/run.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 53, in <module>
+    budget_monitor = BudgetMonitor(payment_entry_service, EmailService(api_key=api_key, from_email=from_email), user_service)
+NameError: name 'payment_entry_service' is not defined. Did you mean: 'PaymentEntryService'?
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 53, in <module>
+    budget_monitor = BudgetMonitor(payment_entry_service, EmailService(api_key=api_key, from_email=from_email), user_service)
+NameError: name 'payment_entry_service' is not defined. Did you mean: 'PaymentEntryService'?
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 53, in <module>
+    budget_monitor = BudgetMonitor(payment_entry_service, EmailService(api_key=api_key, from_email=from_email), user_service)
+NameError: name 'payment_entry_service' is not defined. Did you mean: 'PaymentEntryService'?
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 53, in <module>
+    budget_monitor = BudgetMonitor(payment_entry_service, EmailService(api_key=api_key, from_email=from_email), user_service)
+NameError: name 'payment_entry_service' is not defined. Did you mean: 'PaymentEntryService'?
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 53, in <module>
+    budget_monitor = BudgetMonitor(payment_entry_service, EmailService(api_key=api_key, from_email=from_email), user_service)
+NameError: name 'payment_entry_service' is not defined. Did you mean: 'PaymentEntryService'?
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 53, in <module>
+    budget_monitor = BudgetMonitor(payment_entry_service, EmailService(api_key=api_key, from_email=from_email), user_service)
+NameError: name 'payment_entry_service' is not defined. Did you mean: 'PaymentEntryService'?
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from app import app
+ImportError: cannot import name 'app' from 'app' (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 4, in <module>
+    from app import app
+ImportError: cannot import name 'app' from 'app' (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 4, in <module>
+    from app import app
+ImportError: cannot import name 'app' from 'app' (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 4, in <module>
+    from app import app
+ImportError: cannot import name 'app' from 'app' (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 4, in <module>
+    from app import app
+ImportError: cannot import name 'app' from 'app' (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 4, in <module>
+    from app import app
+ImportError: cannot import name 'app' from 'app' (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 4, in <module>
+    from app import app
+ImportError: cannot import name 'app' from 'app' (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 4, in <module>
+    from app import app
+ImportError: cannot import name 'app' from 'app' (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 4, in <module>
+    from app import app
+ImportError: cannot import name 'app' from 'app' (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py)
+Debug: API Key is None
+Debug: API Key is None
+Debug: API Key is None
+Debug: API Key is None
+Debug: API Key is None
+Debug: API Key is None
+Debug: API Key is None
+Debug: API Key is None
+Debug: API Key is None
+Debug: API Key is None
+Debug: API Key is None
+Debug: API Key is None
+Debug: API Key is None
+Debug: API Key is None
+Debug: API Key is None
+Debug: API Key is None
+Debug: API Key is None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None
+Debug: API Key is None
+Initialized from_email: None

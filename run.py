@@ -1,18 +1,18 @@
-import sys
-sys.path.append('/mnt/c/Users/ADMIN/practiceprojects/unusual_spending')
-from app import create_app, db
+from functools import partial
+from app import create_app, db, scheduler
 from flask_migrate import Migrate
-from flask_crontab import Crontab
 from flask_jwt_extended import JWTManager
+from main import scheduled_check_budget
 
 app = create_app()
+partial_func = partial(scheduled_check_budget, app=app)
 migrate = Migrate(app, db)
 jwt = JWTManager(app)
-crontab = Crontab(app)
 
 if __name__ == "__main__":
-    crontab.init_app(app)
-    app.run(debug=False)
+    scheduler.add_job(id='Scheduled Task', func=partial_func,
+                      trigger='interval', minutes=1)
+    app.run(debug=True)
 
 
 
