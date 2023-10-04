@@ -14,3 +14,11 @@ Traceback (most recent call last):
   File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 67, in <module>
     @crontab.job(minute="42", hour="21")
 NameError: name 'crontab' is not defined. Did you mean: 'Crontab'?
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from app import crontab
+ImportError: cannot import name 'crontab' from 'app' (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py)
+Traceback (most recent call last):
+  File "/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/main.py", line 3, in <module>
+    from app import crontab
+ImportError: cannot import name 'crontab' from 'app' (/mnt/c/Users/ADMIN/practiceprojects/unusual_spending/app/__init__.py)
