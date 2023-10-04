@@ -1,8 +1,8 @@
 import os
 from datetime import datetime, timedelta
-from run import crontab
 from app.models import PaymentCategory
-from app.api.services import payment_entry_service, user_service
+from app.api.services.payment_entry_service import PaymentEntryService
+from app.api.services.user_service import UserService
 from email_service import EmailService
 
 api_key = os.environ.get('SENDGRID_API_KEY')
@@ -20,12 +20,19 @@ class BudgetMonitor:
         return total_spending
 
     def is_over_spending(self, user_id, payment_category, date_range):
+        print(f"Date range for current month: {date_range['current']}")
+        print(f"Date range for previous month: {date_range['previous']}")
+        
         current_month_entries = self.payment_entry_service.get_payment_entries(
-            user_id, payment_category, date_range=date_range['current']
+        user_id, payment_category, start_date_str=date_range['current']['start'].strftime('%Y-%m-%d'), end_date_str=date_range['current']['end'].strftime('%Y-%m-%d')
         )
+
         previous_month_entries = self.payment_entry_service.get_payment_entries(
-            user_id, payment_category, date_range=date_range['previous']
+        user_id, payment_category, start_date_str=date_range['previous']['start'].strftime('%Y-%m-%d'), end_date_str=date_range['previous']['end'].strftime('%Y-%m-%d')
         )
+
+        print(f"Current month entries for user {user_id} in category {payment_category}: {current_month_entries}")
+        print(f"Previous month entries for user {user_id} in category {payment_category}: {previous_month_entries}")
         
         if not current_month_entries or not previous_month_entries:
             return False
@@ -37,9 +44,11 @@ class BudgetMonitor:
             user_data = self.user_service.get_user(user_id)
             user_email = user_data["email"]
             overspending_percent = ((current_month_spending - previous_month_spending) / previous_month_spending) * 100
+            print(f"Overspending detected for user {user_id}. Preparing to send email.")
             self.send_overspending_email(user_email, payment_category, overspending_percent)
             return True
         else:
+            print(f"No overspending detected for user {user_id} in category {payment_category}. No email will be sent.")
             return False
 
     def send_overspending_email(self, to_email, payment_category, overspending_percent):
@@ -48,9 +57,12 @@ class BudgetMonitor:
         subject = "Overspending Detected"
         content = f"Overspending detected in the {payment_category} category.\n"
         content += f"You have overspent by {overspending_percent:.2f}% compared to the previous month."
-        self.email_service.send_email(from_email, to_email, subject, content)
+        print("subject:", subject)
+        print("content:", content)
+        self.email_service.send_email(to_email, subject, content)
+        print(f"Email successfully sent to {to_email}")
 
-budget_monitor = BudgetMonitor(payment_entry_service, EmailService(api_key=api_key, from_email=from_email), user_service)
+budget_monitor = BudgetMonitor(PaymentEntryService(), EmailService(api_key=api_key, from_email=from_email), UserService())
 
 def get_date_ranges():
     today = datetime.today()
@@ -64,16 +76,17 @@ def get_date_ranges():
         'previous': {'start': first_day_prev_month, 'end': last_day_prev_month}
     }
 
-@crontab.job(minute="*")
-def scheduled_check_budget():
-    print("Scheduled task started.")
-    all_users = user_service.get_all_users()
-    print(f"Retrieved all users: {all_users}")
-    for user in all_users:
-        print(f"Processing user: {user.user_id}")
-        user_id = user.user_id
+def scheduled_check_budget(app):
+    with app.app_context():
+        print("This is a test")
+        print("Scheduled task started.")
+        all_users = budget_monitor.user_service.get_all_users()
+        print(f"Retrieved all users: {all_users}")
+        for user in all_users:
+            print(f"Processing user: {user['user_id']}")
+            user_id = user['user_id']
+            
+            for payment_category in PaymentCategory:
+                date_range = get_date_ranges()
         
-        for payment_category in PaymentCategory:
-            date_range = get_date_ranges()
-    
-            budget_monitor.is_over_spending(user_id, payment_category.value, date_range)
+                budget_monitor.is_over_spending(user_id, payment_category.value, date_range)

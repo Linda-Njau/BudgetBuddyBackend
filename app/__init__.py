@@ -1,13 +1,14 @@
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
-from flask_crontab import Crontab
 from flask_cors import CORS
+from flask_apscheduler import APScheduler
 from .config import Config
 from os import path
 
 
-
 db = SQLAlchemy()
+scheduler = APScheduler()
+
 from .models import *
 
 DB_NAME = "database.db"
@@ -17,6 +18,8 @@ def create_app(environment: str = 'development'):
     environment_config = Config[environment]
     app.config.from_object(environment_config)
     db.init_app(app)
+    scheduler.init_app(app)
+    scheduler.start()
     
     CORS(app)
 
@@ -40,6 +43,9 @@ def create_app(environment: str = 'development'):
         with app.app_context():
             create_database(app)
     
+    from main import scheduled_check_budget
+    with app.app_context():
+        scheduled_check_budget(app)
     return app
 
 def create_database(app):
