@@ -2,14 +2,17 @@ import sys
 sys.path.append('/mnt/c/Users/ADMIN/practiceprojects/unusual_spending')
 from app import create_app, db
 from flask_migrate import Migrate
+from flask_crontab import Crontab
 from flask_jwt_extended import JWTManager
 
 app = create_app()
 migrate = Migrate(app, db)
 jwt = JWTManager(app)
+crontab = Crontab(app)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    crontab.init_app(app)
+    app.run(debug=False)
 
 
 

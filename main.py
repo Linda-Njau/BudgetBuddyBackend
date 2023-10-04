@@ -1,6 +1,6 @@
 import os
 from datetime import datetime, timedelta
-from app import crontab
+from run import crontab
 from app.models import PaymentCategory
 from app.api.services import payment_entry_service, user_service
 from email_service import EmailService
