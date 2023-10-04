@@ -10,7 +10,6 @@ from os import path
 db = SQLAlchemy()
 from .models import *
 
-crontab = Crontab()
 DB_NAME = "database.db"
 def create_app(environment: str = 'development'):
     """Create a new flask application"""
@@ -20,8 +19,7 @@ def create_app(environment: str = 'development'):
     db.init_app(app)
     
     CORS(app)
-    
-    crontab.init_app(app)
+
 
     from .api.auth import auth
     from .api.users import users
