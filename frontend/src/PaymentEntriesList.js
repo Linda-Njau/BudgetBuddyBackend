@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchPaymentEntries } from './httpService';
+import './styles.css';
+import withAuth from './withAuth';
 
 const PaymentEntriesList = ({ userId }) => {
   console.log('PaymentEntriesList component mounted');
@@ -61,10 +63,12 @@ const PaymentEntriesList = ({ userId }) => {
   useEffect(() => {
     filterEntries();
   }, [paymentCategory, month, allPaymentEntries]);
+  
   return (
-    <div>
+    <div className="filter-container">
       <h2>Your Payment Entries</h2>
-      <div>
+      <div className="filter-group">
+        <div className="filter-item">
         <label>
           Payment Category:
           <input
@@ -76,8 +80,10 @@ const PaymentEntriesList = ({ userId }) => {
             }}
           />
         </label>
+      </div>
+      <div className="filter-item">
         <label>
-          Month:
+          Month:          
           <input
             type="text"
             value={month}
@@ -87,14 +93,12 @@ const PaymentEntriesList = ({ userId }) => {
             }}
           />
         </label>
-        <button onClick={filterEntries}>
+      </div>
+        <button className="filter-button" onClick={filterEntries}>
           Filter
         </button>
-        <button onClick={handleReset}>
-          Reset
-        </button>
       </div>
-      <table>
+      <table className="table">
         <thead>
           <tr>
             <th>Amount</th>

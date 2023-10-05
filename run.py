@@ -11,23 +11,8 @@ jwt = JWTManager(app)
 
 if __name__ == "__main__":
     scheduler.add_job(id='Scheduled Task', func=partial_func,
-                      trigger='interval', minutes=1)
+                      trigger='interval', days=15, start_date='2023-10-05 12:00:00')
     app.run(debug=True)
 
 
 
-# def list_routes(app):
-#     """
-#     Function to list all registered routes in a Flask app.
-#     """
-#     output = []
-#     for rule in app.url_map.iter_rules():
-#         methods = ','.join(rule.methods)
-#         line = f"{rule.endpoint} : {methods} : {rule}"
-#         output.append(line)
-#     return output
-
-# Call the function to list routes and print them
-# routes = list_routes(app)
-# for route in routes:
-#     print(route)

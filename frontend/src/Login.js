@@ -1,19 +1,25 @@
 import React, { useState } from 'react';
 import { postData } from './httpService';
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import './FormStyles.css';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const payload = { username, password };
             const response = await postData('/login', payload);
-            localStorage.setItem('access_token', response.access_token);
+            localStorage.setItem('token', response.access_token);
             localStorage.setItem('user_id', response.user_id);
+
+            window.dispatchEvent(new Event('storage'));
+            
+            navigate('/PaymentEntry');
         } catch (error) {
             console.error('Login Failed:', error);
         }

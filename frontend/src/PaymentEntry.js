@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './paymententry.css';
 import { postData } from './httpService';
 import DatePicker from 'react-datepicker'; 
 import 'react-datepicker/dist/react-datepicker.css';
@@ -33,58 +34,57 @@ const PaymentEntry = ({ userId }) => {
         }
     };
     return (
-            <div className="payment-form-container">
-              <h2>Create Payment Entry</h2>
-              <p>Recording every payment entry allows for more accurate results.</p>
-              <img src="path/to/your/icon.png" alt="Description Icon" />
-          
-              <form className="payment-form" onSubmit={handleSubmit}>
-                <div className="form-group">
-                  <label>
-                    Amount:
-                    <input type="number"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                    />
-                  </label>
-                  <small>Enter the amount you spent in numbers.</small>
-                </div>
-          
-                <div className="form-group">
-                  <label>
-                    Payment Category:
-                    <select value={payment_category} onChange={(e) => setPaymentCategory(e.target.value)}>
-                      <option value="FOOD">FOOD</option>
-                      <option value="TRAVEL">TRAVEL</option>
-                      <option value="UTILITIES">UTILITIES</option>
-                      <option value="TRANSPORT">TRANSPORT</option>
-                      <option value="ENTERTAINMENT">ENTERTAINMENT</option>
-                    </select>
-                  </label>
-                  <small>Select the appropriate category for this payment.</small>
-                </div>
-          
-                <div className="form-group">
-                  <label>
-                    Transaction Date:
-                    <DatePicker
-                      selected={transactionDate}
-                      onChange={(date) => setTransactionDate(date)}
-                      dateFormat="yyyy-MM-dd"
-                    />
-                  </label>
-                  <small>Choose the date when the transaction was made.</small>
-                </div>
-          
-                <button type="submit">Submit</button>
-              </form>
-            </div>
-          );
-          
+      <div className="payment-form-container">
+        <h2>Create Payment Entry</h2>
+        <p>Recording every payment entry allows for more accurate results.</p>    
+        <form className="payment-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+          <small>Enter the amount you spent in numbers.</small>
+            <label>
+              Amount:
+              <input type="number"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              />
+            </label>
+            
+          </div>
+    
+          <div className="form-group">
+          <small>Select the appropriate category for this payment.</small>
+            <label>
+              Payment Category:
+              <select value={payment_category} onChange={(e) => setPaymentCategory(e.target.value)}>
+                <option value="FOOD">FOOD</option>
+                <option value="TRAVEL">TRAVEL</option>
+                <option value="UTILITIES">UTILITIES</option>
+                <option value="TRANSPORT">TRANSPORT</option>
+                <option value="ENTERTAINMENT">ENTERTAINMENT</option>
+              </select>
+            </label>
+          </div>
+    
+          <div className="form-group">
+          <small>Choose the date when the transaction was made.</small>
+            <label>
+              Transaction Date:
+              <DatePicker
+                selected={transactionDate}
+                onChange={(date) => setTransactionDate(date)}
+                dateFormat="yyyy-MM-dd"
+              />
+            </label>
+          </div>
+    
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    );
+    
 
-    PaymentEntry.propTypes = {
-        userId: PropTypes.number.isRequired,
-      };
+PaymentEntry.propTypes = {
+  userId: PropTypes.number.isRequired,
+};
 };
 
 export default PaymentEntry
