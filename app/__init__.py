@@ -43,7 +43,7 @@ def create_app(environment: str = 'development'):
         with app.app_context():
             create_database(app)
     
-    from main import scheduled_check_budget
+    from app.api.services.budget_monitor_service import scheduled_check_budget
     with app.app_context():
         scheduled_check_budget(app)
     return app

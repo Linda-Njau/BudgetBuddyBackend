@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from app.models import PaymentCategory
 from app.api.services.payment_entry_service import PaymentEntryService
 from app.api.services.user_service import UserService
-from email_service import EmailService
+from app.api.services.email_service import EmailService
 
 api_key = os.environ.get('SENDGRID_API_KEY')
 from_email = os.environ.get('FROM_EMAIL_ADDRESS')
