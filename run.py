@@ -2,7 +2,7 @@ from functools import partial
 from app import create_app, db, scheduler
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
-from main import scheduled_check_budget
+from app.api.services.budget_monitor_service import scheduled_check_budget
 
 app = create_app()
 partial_func = partial(scheduled_check_budget, app=app)
