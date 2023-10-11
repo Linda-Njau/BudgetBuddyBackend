@@ -11,7 +11,7 @@ jwt = JWTManager(app)
 
 if __name__ == "__main__":
     scheduler.add_job(id='Scheduled Task', func=partial_func,
-                      trigger='interval', days=15, start_date='2023-10-05 12:00:00')
+                      trigger='interval', minutes=1)
     app.run(debug=True)
 
 
