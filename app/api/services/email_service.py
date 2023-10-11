@@ -4,7 +4,6 @@ from sendgrid.helpers.mail import Mail, Email, To, Content
 
 class EmailService:
     def __init__(self, api_key, from_email):
-        print("Debug: API Key is", api_key)
         self.sg = sendgrid.SendGridAPIClient(api_key=api_key)
         self.from_email = from_email
         print("Initialized from_email:", self.from_email)
