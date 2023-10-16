@@ -2,11 +2,11 @@ import email
 import unittest
 from datetime import datetime
 from unittest.mock import MagicMock
-from email_service import EmailService
-from main import OverSpending
+from app.api.services.email_service import EmailService
+from app.api.services.budget_monitor_service import OverSpending
 from app.api.services.payment_entry_service import PaymentEntryService
 from app.models import PaymentCategory
-from email_service import EmailService
+from app.api.services.email_service import EmailService
 
 class MockEmailService(EmailService):
     def send_email(self, from_email, to_email, subject, content):
