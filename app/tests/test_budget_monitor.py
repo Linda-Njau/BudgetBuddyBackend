@@ -1,5 +1,5 @@
 import pytest
-from main import BudgetMonitor
+from app.api.services.budget_monitor_service import BudgetMonitor
 from unusual_spending.email_service import EmailService
 from unusual_spending.app.api.services.payment_entry_service import PaymentEntryService
 from unusual_spending.app.api.services.user_service import UserService
