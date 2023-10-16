@@ -18,8 +18,9 @@ def create_app(environment: str = 'development'):
     environment_config = Config[environment]
     app.config.from_object(environment_config)
     db.init_app(app)
-    scheduler.init_app(app)
-    scheduler.start()
+    if environment != 'testing':
+        scheduler.init_app(app)
+        scheduler.start()
     
     CORS(app)
 
@@ -44,8 +45,9 @@ def create_app(environment: str = 'development'):
             create_database(app)
     
     from app.api.services.budget_monitor_service import scheduled_check_budget
-    with app.app_context():
-        scheduled_check_budget(app)
+    if environment != 'testing':
+        with app.app_context():
+            scheduled_check_budget(app)
     return app
 
 def create_database(app):

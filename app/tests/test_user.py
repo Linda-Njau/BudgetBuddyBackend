@@ -1,5 +1,5 @@
 import unittest
-from .. import create_app
+from app import create_app
 from app.models import User, PaymentCategory, PaymentEntry
 from app import db
 from datetime import datetime, date
@@ -28,12 +28,6 @@ class TestUserEndpoints(unittest.TestCase):
             db.drop_all()
             
     def test_create_user(self):
-        with self.app.app_context():
-            existing_users = User.query.all()
-            print("Existing users in the database:")
-            for user in existing_users:
-                print(f"User ID: {user.user_id}, Username: {user.username}, Email: {user.email}")
-
         user_data = {
             'email': 'testuser2@example.com',
             'username': 'testuser2',

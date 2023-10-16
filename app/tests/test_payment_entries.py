@@ -43,18 +43,14 @@ class TestPaymentEntriesEndpoints(unittest.TestCase):
         with self.app.app_context():
             payment_entry_data = {
                 'amount': 50,
-                'transaction_date': '2023-1-10',
+                'transactionDate': '2023-01-10',
                 'payment_category': PaymentCategory.FOOD.value,
                 'user_id': self.user_id
             }
-            print(f"transaction_date type: {type(payment_entry_data['transaction_date'])}")
             response = self.client.post('/payment_entries', json=payment_entry_data)
             self.assertEqual(response.status_code, 201)
             response_data = response.get_json()
-            print(f'Here is the response_data{response_data}')
             payment_entry_id = response_data[0].get('payment_entry_id')
-            print(response.status_code)
-            print(response.get_json())
             self.assertIsNotNone(payment_entry_id)
             with db.session() as session:
                 created_payment_entry = session.get(PaymentEntry, self.test_payment_entry_id)
@@ -63,8 +59,6 @@ class TestPaymentEntriesEndpoints(unittest.TestCase):
                 self.assertEqual(created_payment_entry.user_id, self.user_id)
     
     def test_get_payment_entry(self):
-        url = f'/payment_entries/{self.test_payment_entry_id}'
-        print(f"Testing URL: {url}")
         response = self.client.get(f'/payment_entries/{self.test_payment_entry_id}')
         self.assertEqual(response.status_code, 200)
         expected_payment_data = {
@@ -72,8 +66,6 @@ class TestPaymentEntriesEndpoints(unittest.TestCase):
             "transaction_date": "2023-01-10",
             "payment_category": PaymentCategory.FOOD.value
         }
-        print("Response Data:", response.get_json())
-        print("Expected Payment Data:", expected_payment_data)
         response_data = response.get_json()
         self.assertEqual(response_data, expected_payment_data)
 
@@ -118,3 +110,68 @@ class TestPaymentEntriesEndpoints(unittest.TestCase):
                 self.assertIsNone(deleted_payment_entry)
                 response_data = response.get_json()
                 self.assertEqual(response_data['message'], 'Payment entry was successfully deleted')
+
+    def test_get_payment_entries(self):
+        with self.app.app_context():
+            db.session.add(self.test_user)
+            db.session.flush()
+            user_id = self.test_user.user_id
+            payment_entry1 = PaymentEntry(
+                amount=50,
+                transaction_date=date(2023, 1, 10),
+                payment_category=PaymentCategory.FOOD,
+                created_at=datetime(2023, 1, 15),
+                updated_at=datetime(2023, 1, 15),
+                
+                user_id=self.test_user.user_id
+            )
+            payment_entry2 = PaymentEntry(
+                amount=75,
+                transaction_date =date(2023, 2, 10),
+                payment_category=PaymentCategory.TRAVEL,
+                created_at=datetime(2023, 2, 20),
+                updated_at =datetime(2023, 2, 20),
+                user_id=user_id
+            )
+            payment_entry3 = PaymentEntry(
+                amount=100,
+                transaction_date =date(2023, 1, 10),
+                payment_category=PaymentCategory.FOOD,
+                created_at=datetime(2023, 1, 20),
+                updated_at=datetime(2023, 1, 20),
+                user_id=user_id
+            )
+            db.session.add(payment_entry1)
+            db.session.add(payment_entry2)
+            db.session.add(payment_entry3)
+            db.session.commit()
+            
+            response = self.client.get(f'/users/{user_id}/payment_entries')
+            self.assertEqual(response.status_code, 200)
+            response_data = response.get_json()
+            self.assertEqual(len(response_data), 4)
+            
+            for payment_entry in response_data:
+                self.assertIn('payment_category', payment_entry)
+                
+            response = self.client.get(f'/users/{user_id}/payment_entries?payment_category=FOOD')
+            self.assertEqual(response.status_code, 200)
+            response_data = response.get_json()
+            self.assertEqual(len(response_data), 3)
+            self.assertEqual(response_data[0]['payment_category'], PaymentCategory.FOOD.value)
+            
+            response = self.client.get(f'/users/{user_id}/payment_entries?payment_category=TRAVEL')
+            self.assertEqual(response.status_code, 200)
+            response_data = response.get_json()
+            self.assertEqual(len(response_data), 1)
+            self.assertEqual(response_data[0]['payment_category'], PaymentCategory.TRAVEL.value)
+            
+            response = self.client.get(f'/users/{user_id}/payment_entries?month=1')
+            self.assertEqual(response.status_code, 200)
+            response_data = response.get_json()
+            self.assertEqual(len(response_data), 2)
+            
+            response = self.client.get(f'/users/{user_id}/payment_entries?payment_category=FOOD&month=1')
+            self.assertEqual(response.status_code, 200)
+            response_data = response.get_json()
+            self.assertEqual(len(response_data), 2)

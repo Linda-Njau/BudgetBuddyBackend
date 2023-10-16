@@ -25,11 +25,9 @@ class UserService:
             db.session.add(new_user)
             db.session.commit()
         
-            print(f"User {username} created successfully") 
             return {'message' : "Successfully created"}, 201
         except Exception as error:
             db.session.rollback()
-            print(f"Error creating user {username}: {str(error)}")
             return {'message' : 'Error creating user'}, 500
     
     def get_user(self, user_id):
