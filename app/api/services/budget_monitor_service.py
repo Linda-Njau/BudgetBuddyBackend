@@ -20,8 +20,8 @@ class BudgetMonitor:
         return total_spending
 
     def is_over_spending(self, user_id, payment_category, date_range):
-        print(f"Date range for current month: {date_range['current']}")
-        print(f"Date range for previous month: {date_range['previous']}")
+        """print(f"Date range for current month: {date_range['current']}")
+        print(f"Date range for previous month: {date_range['previous']}")"""
         
         current_month_entries = self.payment_entry_service.get_payment_entries(
         user_id, payment_category, start_date_str=date_range['current']['start'].strftime('%Y-%m-%d'), end_date_str=date_range['current']['end'].strftime('%Y-%m-%d')
@@ -57,8 +57,8 @@ class BudgetMonitor:
         subject = "Overspending Detected"
         content = f"Overspending detected in the {payment_category} category.\n"
         content += f"You have overspent by {overspending_percent:.2f}% compared to the previous month."
-        print("subject:", subject)
-        print("content:", content)
+        """print("subject:", subject)
+        print("content:", content)"""
         self.email_service.send_email(to_email, subject, content)
         print(f"Email successfully sent to {to_email}")
 
@@ -71,10 +71,12 @@ def get_date_ranges():
     first_day_prev_month = datetime(today.year, today.month - 1, 1)
     last_day_prev_month = datetime(today.year, today.month, 1) - timedelta(days=1)
     
-    return {
+    date_ranges = {
         'current': {'start': first_day_current_month, 'end': last_day_current_month},
         'previous': {'start': first_day_prev_month, 'end': last_day_prev_month}
     }
+    """print("Date Ranges:", date_ranges)"""
+    return date_ranges
 
 def scheduled_check_budget(app):
     with app.app_context():
@@ -82,11 +84,15 @@ def scheduled_check_budget(app):
         print("Scheduled task started.")
         all_users = budget_monitor.user_service.get_all_users()
         print(f"Retrieved all users: {all_users}")
+        print("Type of all_users:", type(all_users))
         for user in all_users:
-            print(f"Processing user: {user['user_id']}")
-            user_id = user['user_id']
+            user_id = user.get('user_id')
+            if user_id is not None:
+                print(f"Processing user: {user['user_id']}")
             
-            for payment_category in PaymentCategory:
-                date_range = get_date_ranges()
-        
-                budget_monitor.is_over_spending(user_id, payment_category.value, date_range)
+                for payment_category in PaymentCategory:
+                    date_range = get_date_ranges()
+            
+                    budget_monitor.is_over_spending(user_id, payment_category.value, date_range)
+            else:
+                print("User ID not found")
