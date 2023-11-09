@@ -73,10 +73,10 @@ class PaymentEntryService:
         if payment_category:
             user_payment_entries_query = user_payment_entries_query.filter(PaymentEntry.payment_category == payment_category)
         if month:
-            user_payment_entries_query = user_payment_entries_query.filter(db.func.extract('month', PaymentEntry.created_at) == month)    
+            user_payment_entries_query = user_payment_entries_query.filter(db.func.extract('month', PaymentEntry.transaction_date) == month)  
         if start_date and end_date:
             """print(f"Filtering by start_date: {start_date} and end_date: {end_date}")"""
-            user_payment_entries_query = user_payment_entries_query.filter(PaymentEntry.created_at.between(start_date, end_date))
+            user_payment_entries_query = user_payment_entries_query.filter(PaymentEntry.transaction_date.between(start_date, end_date))
         
         user_payment_entries = user_payment_entries_query.all()
         
