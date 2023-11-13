@@ -15,7 +15,7 @@ class EmailService:
 
     def send_email(self, to_email, subject, content):
         """
-        Send an email using SendGrid.
+        Send an email using SendGrid API.
 
         Parameters:
         - to_email (str): The recipient's email address.

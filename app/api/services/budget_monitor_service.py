@@ -24,6 +24,11 @@ class BudgetMonitor:
     def __init__(self, payment_entry_service, email_service, user_service):
         """
         Initializes the BudgetMonitor.
+        
+        Parameters:
+        - payment_entry_service: Service for managing payment entries.
+        - email_service: Service for sending emails.
+        - user_service: Service for user-related operations.
         """
         self.payment_entry_service = payment_entry_service
         self.email_service = email_service
@@ -54,7 +59,7 @@ class BudgetMonitor:
         - date_range: Dictionary containing start and end dates for the current and previous months.
 
         Returns:
-        - True if overspending is detected, False otherwise.
+        - Tuple: (True if overspending is detected, False otherwise, Percentage of overspending.
         """
         current_month_entries = self.payment_entry_service.get_payment_entries(
         user_id, payment_category, start_date_str=date_range['current']['start'].strftime('%Y-%m-%d'), end_date_str=date_range['current']['end'].strftime('%Y-%m-%d')
@@ -83,7 +88,7 @@ class BudgetMonitor:
         Sends an email notification for detected overspending.
 
         Parameters:
-        - to_email: Email address to send the notification.
+        - user_id: ID of the user.
         - payment_category: Payment category related to overspending.
         - overspending_percent: Percentage of overspending.
 
