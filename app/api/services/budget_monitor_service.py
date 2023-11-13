@@ -44,7 +44,7 @@ class BudgetMonitor:
             total_spending += entry["amount"]
         return total_spending
 
-    def is_over_spending(self, user_id, payment_category, date_range):
+    def detect_overspending(self, user_id, payment_category, date_range):
         """
         Checks if the user is overspending in a given payment category for the current month.
 
@@ -63,23 +63,22 @@ class BudgetMonitor:
         previous_month_entries = self.payment_entry_service.get_payment_entries(
         user_id, payment_category, start_date_str=date_range['previous']['start'].strftime('%Y-%m-%d'), end_date_str=date_range['previous']['end'].strftime('%Y-%m-%d')
         )
-        
-        if not current_month_entries or not previous_month_entries:
-            return False
 
+        if not current_month_entries or not previous_month_entries:
+            return False, 0.0
+        
         current_month_spending = self.calculate_total_spending(current_month_entries)
         previous_month_spending = self.calculate_total_spending(previous_month_entries)
         
-        if current_month_spending >= 1.5 * previous_month_spending:
-            user_data = self.user_service.get_user(user_id)
-            user_email = user_data["email"]
-            overspending_percent = ((current_month_spending - previous_month_spending) / previous_month_spending) * 100
-            self.send_overspending_email(user_email, payment_category, overspending_percent)
-            return True
-        else:
-            return False
+        overspending_detected = current_month_spending >= 1.5 * previous_month_spending
+        overspending_percent = ((current_month_spending - previous_month_spending) / previous_month_spending) * 100
 
-    def send_overspending_email(self, to_email, payment_category, overspending_percent):
+        
+        if overspending_detected:
+            self.notify_overspending(user_id, payment_category, overspending_percent)
+        return overspending_detected, overspending_percent
+                   
+    def notify_overspending(self, user_id, payment_category, overspending_percent):
         """
         Sends an email notification for detected overspending.
 
@@ -91,14 +90,14 @@ class BudgetMonitor:
         Returns:
         - None
         """
-        print(f"Preparing to send email to {to_email}")
+        user_data = self.user_service.get_user(user_id)
+        to_email = user_data["email"]
         subject = "Overspending Detected"
         content = f"Overspending detected in the {payment_category} category.\n"
         content += f"You have overspent by {overspending_percent:.2f}% compared to the previous month."
         self.email_service.send_email(to_email, subject, content)
-        print(f"Email successfully sent to {to_email}")
 
-budget_monitor = BudgetMonitor(PaymentEntryService(), EmailService(api_key=api_key, from_email=from_email), UserService())
+budget_monitor = BudgetMonitor(PaymentEntryService(), EmailService(api_key=api_key), UserService())
 
 def get_date_ranges():
     """
@@ -137,4 +136,4 @@ def scheduled_check_budget(app):
                 for payment_category in PaymentCategory:
                     date_range = get_date_ranges()
             
-                    budget_monitor.is_over_spending(user_id, payment_category.value, date_range)
+                    budget_monitor.detect_overspending(user_id, payment_category.value, date_range)
