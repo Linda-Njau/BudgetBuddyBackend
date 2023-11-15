@@ -56,26 +56,17 @@ class PaymentEntryService:
         }
         return payment_entry_data
     
-    def get_payment_entries(self, user_id, payment_category=None, month=None, start_date_str=None, end_date_str=None):
+    def get_payment_entries(self, user_id, payment_category=None, month=None, start_date=None, end_date=None):
         """Returns all payment entries for the user by user_id
             filter by payment_category and month if provided
         """
-        start_date, end_date = None, None
-        if start_date_str:
-            start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
-        if end_date_str:
-            end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
-        
-        """print(f"Executing query for user {user_id} with date_range {start_date} to {end_date} and payment_category {payment_category}")"""
-        
         user_payment_entries_query = PaymentEntry.query.filter_by(user_id=user_id)
         
         if payment_category:
             user_payment_entries_query = user_payment_entries_query.filter(PaymentEntry.payment_category == payment_category)
         if month:
-            user_payment_entries_query = user_payment_entries_query.filter(db.func.extract('month', PaymentEntry.transaction_date) == month)  
+            user_payment_entries_query = user_payment_entries_query.filter(db.func.extract('month', PaymentEntry.transaction_date) == month)
         if start_date and end_date:
-            """print(f"Filtering by start_date: {start_date} and end_date: {end_date}")"""
             user_payment_entries_query = user_payment_entries_query.filter(PaymentEntry.transaction_date.between(start_date, end_date))
         
         user_payment_entries = user_payment_entries_query.all()

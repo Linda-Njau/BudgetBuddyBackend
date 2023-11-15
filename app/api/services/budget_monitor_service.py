@@ -62,11 +62,11 @@ class BudgetMonitor:
         - Tuple: (True if overspending is detected, False otherwise, Percentage of overspending.
         """
         current_month_entries = self.payment_entry_service.get_payment_entries(
-        user_id, payment_category, start_date_str=date_range['current']['start'].strftime('%Y-%m-%d'), end_date_str=date_range['current']['end'].strftime('%Y-%m-%d')
+        user_id, payment_category, start_date=date_range['current']['start'], end_date=date_range['current']['end']
         )
 
         previous_month_entries = self.payment_entry_service.get_payment_entries(
-        user_id, payment_category, start_date_str=date_range['previous']['start'].strftime('%Y-%m-%d'), end_date_str=date_range['previous']['end'].strftime('%Y-%m-%d')
+        user_id, payment_category, start_date=date_range['previous']['start'], end_date=date_range['previous']['end']
         )
 
         if not current_month_entries or not previous_month_entries:
