@@ -44,10 +44,10 @@ def create_app(environment: str = 'development'):
         with app.app_context():
             create_database(app)
     
-    from app.api.services.budget_monitor_service import scheduled_check_budget
+    from scheduled_budget_check import scheduled_budget_check
     if environment != 'testing':
         with app.app_context():
-            scheduled_check_budget(app)
+            scheduled_budget_check(app)
     return app
 
 def create_database(app):
