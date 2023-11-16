@@ -9,7 +9,7 @@ from app.api.services.payment_entry_service import PaymentEntryService
 from app.api.services.user_service import UserService
 from app.api.services.email_service import EmailService
 
-api_key = os.environ.get('SENDGRID_API_KEY')
+
 from_email = os.environ.get('FROM_EMAIL_ADDRESS')
 class BudgetMonitor:
     """
@@ -21,7 +21,7 @@ class BudgetMonitor:
     - user_service: Service for user-related operations.
     """
     
-    def __init__(self, payment_entry_service, email_service, user_service):
+    def __init__(self, payment_entry_service = None, email_service = None, user_service =None):
         """
         Initializes the BudgetMonitor.
         
@@ -102,7 +102,7 @@ class BudgetMonitor:
         content += f"You have overspent by {overspending_percent:.2f}% compared to the previous month."
         self.email_service.send_email(to_email, subject, content)
 
-budget_monitor = BudgetMonitor(PaymentEntryService(), EmailService(api_key=api_key), UserService())
+
 
 def get_date_ranges():
     """
@@ -123,22 +123,3 @@ def get_date_ranges():
         }
     return date_ranges
 
-def scheduled_check_budget(app):
-    """
-    Perform scheduled budget checks for all users and payment categories.
-
-    Parameters:
-    - app: Flask application instance.
-
-    Returns:
-    - None
-    """
-    with app.app_context():
-        all_users = budget_monitor.user_service.get_all_users()
-        for user in all_users:
-            user_id = user.get('user_id')
-            if user_id is not None:
-                for payment_category in PaymentCategory:
-                    date_range = get_date_ranges()
-            
-                    budget_monitor.detect_overspending(user_id, payment_category.value, date_range)
