@@ -4,6 +4,16 @@ from datetime import datetime, timedelta
 from flask_api import status
 
 def get_error_message(errors, status_code):
+    """
+    Create a standardized error response.
+    
+    Args:
+        errors (str or list): A single error message or a list of error messages.
+        status_code (int): The HTTP status code associated with the error.
+
+    Returns:
+        dict: A dictionary containing the error message(s) and the corresponding status code.
+    """
     if isinstance(errors, list):
         error_message = '; '.join(errors)
     else:
@@ -11,13 +21,32 @@ def get_error_message(errors, status_code):
     return {'error': error_message}, status_code
 
 def get_success_message(data, status_code=status.HTTP_200_OK):
+    """
+    Create a standardized success response.
+
+    Args:
+        data (dict): The data to be included in the success response.
+        status_code (int, optional): The HTTP status code. Defaults to 200 OK.
+
+    Returns:
+        dict: A dictionary containing the data and a success message, along with the status code.
+    """
     return {'data': data, 'message': 'success'}, status_code
 
 class PaymentEntryService:
     """Service for interacting with the payment entry endpoints"""
     
     def is_valid_payment_entry(self, data, context):
-        """Validate payment entry data based on the context."""
+        """
+        Validate the data for a payment entry based on the given context (create, update, patch).
+
+        Args:
+            data (dict): The data dictionary to validate.
+            context (str): The context in which the validation is being performed ('create', 'update', 'patch').
+
+        Returns:
+            tuple: A tuple containing a boolean indicating validity and a list of error messages, if any.
+        """
         error_messages = []
         if context == 'create' or context == 'update':
             if 'amount' not in data:
@@ -66,13 +95,30 @@ class PaymentEntryService:
         return True, None
     
     def convert_str_to_date(self, transaction_date_str):
+        """
+        Convert a date string to a datetime.date object.
+
+        Args:
+            transaction_date_str (str): The date string to convert.
+
+        Returns:
+            datetime.date: The converted date object, or None if the conversion fails.
+        """
         try:
             return datetime.strptime(transaction_date_str, '%Y-%m-%d').date()
         except ValueError:
             return None
   
     def create_payment_entry(self, data):
-        """Create a new payment entry"""
+        """
+        Create a new payment entry with the given data.
+
+        Args:
+            data (dict): The data for the new payment entry.
+
+        Returns:
+            tuple: A success message with the new payment entry's ID, or an error message.
+        """
         amount = data.get('amount')
         payment_category_value = data.get('payment_category')
         transaction_date_str = data.get('transaction_date')
@@ -100,6 +146,16 @@ class PaymentEntryService:
         return get_success_message({"payment_entry_id": new_payment_entry.id}, status.HTTP_201_CREATED)
 
     def get_payment_entry(self, payment_entry_id):
+        """
+        Retrieve a single payment entry by its ID.
+
+        Args:
+            payment_entry_id (int): The ID of the payment entry to retrieve.
+
+        Returns:
+            dict: A dictionary containing the payment entry's details if found.
+            tuple: An error message and a status code if the payment entry is not found.
+        """
         with db.session() as session:
             payment_entry = session.get(PaymentEntry, payment_entry_id)
         if not payment_entry:
@@ -113,8 +169,19 @@ class PaymentEntryService:
         return payment_entry_data
     
     def get_payment_entries(self, user_id, payment_category=None, month=None, start_date=None, end_date=None):
-        """Returns all payment entries for the user by user_id
-            filter by payment_category and month if provided
+        """
+        Retrieve all payment entries for a specific user, optionally filtering by payment category, 
+        month, or a date range.
+
+        Args:
+            user_id (int): The user ID for whom the payment entries are to be retrieved.
+            payment_category (PaymentCategory, optional): The category of payments to filter by. Default is None.
+            month (int, optional): The month number (1-12) to filter the payment entries. Default is None.
+            start_date (date, optional): The start date for filtering payment entries. Default is None.
+            end_date (date, optional): The end date for filtering payment entries. Default is None.
+
+        Returns:
+            list: A list of dictionaries, each representing a payment entry matching the criteria.
         """
         user_payment_entries_query = PaymentEntry.query.filter_by(user_id=user_id)
         
@@ -140,6 +207,16 @@ class PaymentEntryService:
     
 
     def update_payment_entry(self, payment_entry_id, data):
+        """
+        Update a payment entry with the given data based on the payment entry's ID.
+
+        Args:
+            payment_entry_id (int): The ID of the payment entry to be updated.
+            data (dict): A dictionary containing the updated fields of the payment entry.
+
+        Returns:
+            tuple: A success message upon successful update or an error message if the update fails.
+        """
         with db.session() as session:
             payment_entry = session.get(PaymentEntry, payment_entry_id)
             if not payment_entry:
@@ -161,6 +238,17 @@ class PaymentEntryService:
             return get_success_message({"message": "Payment entry updated successfully"}, status.HTTP_200_OK)
         
     def patch_payment_entry(self, payment_entry_id, data):
+        """
+        Partially update a payment entry based on the payment entry's ID. Only the fields 
+        provided in the data dictionary will be updated.
+
+        Args:
+            payment_entry_id (int): The ID of the payment entry to be updated.
+            data (dict): A dictionary containing the fields to be updated.
+
+        Returns:
+            tuple: A success message upon successful update or an error message if the update fails.
+        """
         with db.session() as session:
             payment_entry = session.get(PaymentEntry, payment_entry_id)
             if not payment_entry:
@@ -187,6 +275,15 @@ class PaymentEntryService:
             return get_success_message({"message": "Payment entry updated successfully"}, status.HTTP_200_OK)
 
     def delete_payment_entry(self, payment_entry_id):
+        """
+        Delete a payment entry based on the payment entry's ID.
+
+        Args:
+            payment_entry_id (int): The ID of the payment entry to be deleted.
+
+        Returns:
+            tuple: A success message upon successful deletion or an error message if the deletion fails.
+        """
         with db.session() as session:
             payment_entry = session.get(PaymentEntry, payment_entry_id)
             if not payment_entry:
