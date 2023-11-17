@@ -1,33 +1,93 @@
 from ...models import PaymentEntry, PaymentCategory
 from ... import db
 from datetime import datetime, timedelta
+from flask_api import status
+
+def get_error_message(errors, status_code):
+    if isinstance(errors, list):
+        error_message = '; '.join(errors)
+    else:
+        error_message = errors
+    return {'error': error_message}, status_code
+
+def get_success_message(data, status_code=status.HTTP_200_OK):
+    return {'data': data, 'message': 'success'}, status_code
 
 class PaymentEntryService:
     """Service for interacting with the payment entry endpoints"""
     
+    def is_valid_payment_entry(self, data, context):
+        """Validate payment entry data based on the context."""
+        error_messages = []
+        if context == 'create' or context == 'update':
+            if 'amount' not in data:
+                error_messages.append("Amount is missing")
+            else:
+                try:
+                    amount = float(data['amount'])
+                    if amount <= 0:
+                        error_messages.append("Amount must be positive number.")
+                except ValueError:
+                    error_messages.append("Invalid amount format. It must be a number.")
+
+            if 'payment_category' not in data:
+                error_messages.append("Payment category is missing")
+            else:
+                valid_categories = [category.value for category in PaymentCategory]
+                if data['payment_category'] not in valid_categories:
+                    error_messages.append("Invalid payment category")
+                    
+            if 'transaction_date' not in data:
+                error_messages.append("Transaction date is missing")
+            else:
+                try:
+                    datetime.strptime(data['transaction_date'], '%Y-%m-%d').date()                
+                except ValueError:
+                    error_messages.append("Invalid transaction date format. Use YYYY-MM-DD")
+        if context == "patch":
+            if 'amount' in data:
+                try:
+                    amount = float(data['amount'])
+                    if amount <= 0:
+                        error_messages.append("Amount must be positive number.")
+                except ValueError:
+                    error_messages.append("Invalid amount format. It must be a number.")
+            if 'payment_category' in data:
+                valid_categories = [category.value for category in PaymentCategory]
+                if data['payment_category'] not in valid_categories:
+                    error_messages.append("Invalid payment category")
+            if 'transaction_date' in data:
+                try:
+                    datetime.strptime(data['transaction_date'], '%Y-%m-%d').date()          
+                except ValueError:
+                    error_messages.append("Invalid transaction date format. Use YYYY-MM-DD")
+        if error_messages:
+            return False, error_messages
+        return True, None
+    
+    def convert_str_to_date(self, transaction_date_str):
+        try:
+            return datetime.strptime(transaction_date_str, '%Y-%m-%d').date()
+        except ValueError:
+            return None
+  
     def create_payment_entry(self, data):
         """Create a new payment entry"""
         amount = data.get('amount')
         payment_category_value = data.get('payment_category')
-        transaction_date_str = data.get('transactionDate')
-        user_id = data.get('user_id')  ##needs to be updated to factor in current user
-        if not transaction_date_str:
-            return {'error': 'Transaction date is missing or empty'}, 400
-        try:
-            transaction_date = datetime.strptime(transaction_date_str, '%Y-%m-%d').date()
-        except ValueError:
-            return {'error': 'Invalid transaction date format.Please use YYYY-MM-DD format.'}, 400
-        if not amount or not payment_category_value:
-            return {'error': 'missing amount or payment category value'}, 400
+        transaction_date_str = data.get('transaction_date')
+        user_id = data.get('user_id')
+       
+        is_valid, error_response = self.is_valid_payment_entry(data, context='create')
+        if not is_valid:
+           return get_error_message(error_response, status.HTTP_400_BAD_REQUEST)
         
+        transaction_date = self.convert_str_to_date(transaction_date_str)
         payment_category = None
         for enum_member in PaymentCategory:
             if enum_member.value == payment_category_value:
                 payment_category = enum_member
                 break
-            
-        if not payment_category:
-            return {'error': 'invalid payment category'}, 400
         new_payment_entry = PaymentEntry(
             amount=amount,
             payment_category=payment_category,
@@ -36,22 +96,18 @@ class PaymentEntryService:
         )
         db.session.add(new_payment_entry)
         db.session.commit()
-        
-        return{
-            "message": "New payment entry added successfully",
-            "payment_entry_id": new_payment_entry.id
-            }, 201
+            
+        return get_success_message({"payment_entry_id": new_payment_entry.id}, status.HTTP_201_CREATED)
 
     def get_payment_entry(self, payment_entry_id):
         with db.session() as session:
             payment_entry = session.get(PaymentEntry, payment_entry_id)
         if not payment_entry:
-            return {"error": "payment entry not found"}, 404
+            return get_error_message("Payment entry not found", status.HTTP_404_NOT_FOUND)
         
-        formatted_transaction_date = payment_entry.transaction_date.strftime("%Y-%m-%d")
         payment_entry_data = {
             'amount': payment_entry.amount,
-            'transaction_date': formatted_transaction_date,
+            'transaction_date': payment_entry.transaction_date.strftime("%Y-%m-%d"),
             'payment_category': payment_entry.payment_category.value
         }
         return payment_entry_data
@@ -87,42 +143,55 @@ class PaymentEntryService:
         with db.session() as session:
             payment_entry = session.get(PaymentEntry, payment_entry_id)
             if not payment_entry:
-                return {'error': 'payment entry not found'}, 404
-            transaction_date_str = data.get('transaction_date')
-            transaction_date = datetime.strptime(transaction_date_str, '%Y-%m-%d').date()
+                return get_error_message("Payment entry not found", status.HTTP_404_NOT_FOUND)
+            
+            is_valid, error_response = self.is_valid_payment_entry(data, context='update')
+            if not is_valid:
+                return get_error_message(error_response, status.HTTP_400_BAD_REQUEST)
+            
+            
+           
+            transaction_date = self.convert_str_to_date(data.get('transaction_date'))
             payment_entry.update(
-                amount=data.get('amount'),
-                transaction_date=transaction_date,
-                payment_category=data.get('payment_category')
+            amount=data.get('amount'),
+            transaction_date=transaction_date,
+            payment_category=data.get('payment_category')
             )
             db.session.commit()
-    
+            return get_success_message({"message": "Payment entry updated successfully"}, status.HTTP_200_OK)
+        
     def patch_payment_entry(self, payment_entry_id, data):
         with db.session() as session:
             payment_entry = session.get(PaymentEntry, payment_entry_id)
             if not payment_entry:
-                return{"message": "Payment Entry not found"}, 404
+                return get_error_message("Payment entry not found", status.HTTP_404_NOT_FOUND)
             
             time_elapsed = datetime.utcnow() - payment_entry.created_at
             time_limit = timedelta(hours=24)
             if time_elapsed > time_limit:
-                return {"message": "Payment Entry cannot be edited after 24 hours"}, 403
+                return get_error_message("Payment Entry cannot be edited after 24 hours", status.HTTP_403_FORBIDDEN)
+            
+            is_valid, error_response = self.is_valid_payment_entry(data, context="patch")
+            if not is_valid:
+                return get_error_message(error_response, status.HTTP_400_BAD_REQUEST)
             
             if 'amount' in data:
                 payment_entry.amount = (data['amount'])
             if 'transaction_date' in data:
-                payment_entry.transaction_date = (data['transaction_date'])
+                transaction_date = self.convert_str_to_date(data.get('transaction_date'))
+                payment_entry.transaction_date = transaction_date
             if 'payment_category' in data:
                 payment_entry.payment_category = (data['payment_category'])
+            
             db.session.commit()
-            return {"message": "Payment entry updated successfully"}, 200
+            return get_success_message({"message": "Payment entry updated successfully"}, status.HTTP_200_OK)
 
     def delete_payment_entry(self, payment_entry_id):
         with db.session() as session:
             payment_entry = session.get(PaymentEntry, payment_entry_id)
             if not payment_entry:
-                return {'error': 'Payment entry not found'}, 404
+                return get_error_message("Payment entry not found", status.HTTP_404_NOT_FOUND)
             db.session.delete(payment_entry)
             db.session.commit()
-            
-            return {'message': 'Payment entry was successfully deleted'}
+            return get_success_message({"message": "Payment entry was successfully deleted"}, status.HTTP_204_NO_CONTENT)
+
