@@ -106,6 +106,20 @@ async = ["asgiref (>=3.2)"]
 dotenv = ["python-dotenv"]
 
 [[package]]
+name = "flask-api"
+version = "3.1"
+description = "Browsable web APIs for Flask."
+optional = false
+python-versions = "*"
+files = [
+    {file = "Flask-API-3.1.tar.gz", hash = "sha256:cb079845f5573eac55c6800a9a142bd7b54fd1227019a21cb2f75dfe5311d44f"},
+    {file = "Flask_API-3.1-py3-none-any.whl", hash = "sha256:08cb377412ff1b6bea47e8a5ffefc592a149f8686045038df6e116d12ab5d4e9"},
+]
+
+[package.dependencies]
+Flask = ">=2.0.0"
+
+[[package]]
 name = "flask-apscheduler"
 version = "1.13.0"
 description = "Adds APScheduler support to Flask"
@@ -679,4 +693,4 @@ watchdog = ["watchdog (>=2.3)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "5fe467815617bedd3c93d1fb3f2060a406287bbf4b48b64f94e3eafeddebbf86"
+content-hash = "ce835076ea3d45313dbc6d43da2c9e8b6277b6d3a4ce52c386e149ff37f38d5d"

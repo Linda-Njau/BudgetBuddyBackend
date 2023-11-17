@@ -18,6 +18,7 @@ flask-jwt-extended = "^4.5.2"
 flask-crontab = "^0.1.2"
 flask-apscheduler = "^1.13.0"
 flask = "2.3.3"
+flask-api = "^3.1"
 
 
 [tool.poetry.group.dev.dependencies]
