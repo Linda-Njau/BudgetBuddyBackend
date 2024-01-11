@@ -1,9 +1,79 @@
 from werkzeug.security import generate_password_hash
+import re
 from ...models import User, PaymentCategory, PaymentEntry
 from ... import db
+from flask_api import status
+
+
+def get_error_message(errors, status_code):
+    """
+    Create a standardized error response.
+    
+    Args:
+        errors (str or list): A single error message or a list of error messages.
+        status_code (int): The HTTP status code associated with the error.
+
+    Returns:
+        dict: A dictionary containing the error message(s) and the corresponding status code.
+    """
+    if isinstance(errors, list):
+        error_message = '; '.join(errors)
+    else:
+        error_message = errors
+    return {'error': error_message}, status_code
+
+def get_success_message(data, status_code=status.HTTP_200_OK):
+    """
+    Create a standardized success response.
+
+    Args:
+        data (dict): The data to be included in the success response.
+        status_code (int, optional): The HTTP status code. Defaults to 200 OK.
+
+    Returns:
+        dict: A dictionary containing the data and a success message, along with the status code.
+    """
+    return {'data': data, 'message': 'success'}, status_code
 
 class UserService:
     """Service for interacting with the users endpoints."""
+    
+    def is_valid_user(self, data, context):
+        error_messages = []
+        if context == 'create' or context == 'update':
+            if 'email' not in data:
+                error_messages.append("Please provide an email address")
+            else:
+                if not self.is_valid_format(data['email']):
+                    error_messages.append("Invalid email format")
+                elif context == 'create' and self.is_email_taken(data['email']):
+                    error_messages.append("Email address already in use")
+                    
+            if 'password' not in data:
+                error_messages.append("Please provide a password")
+            elif len(data['password']) < 8:
+                error_messages.append("Password must be at least 8 characters long")
+            
+            if 'username' not in data:
+                error_messages.append("Please provide a username")
+            elif len(data['username']) < 3:
+                error_messages.append("Username must be at least 3 characters long")
+        
+        if error_messages:
+            return False, error_messages
+        return True, None
+    
+    def is_username_taken(self, username, user_id):
+        existing_user = User.query.filter(User.username == username, User.user_id != user_id).first()
+        return existing_user is not None
+
+    def is_valid_format(self, email):
+        email_regex = r"^[^@\s]+@[^@\s]+\.[^@\s]+$"
+        return re.match(email_regex, email) is not None
+    
+    def is_email_taken(self, email):
+        existing_user = User.query.filter_by(email=email).first()
+        return existing_user is not None
     
     def create_user(self, data):
         """Creates new user"""
@@ -21,14 +91,10 @@ class UserService:
             username=username,
             password_hash=password_hash
         )
-        try:
-            db.session.add(new_user)
-            db.session.commit()
         
-            return {'message' : "Successfully created"}, 201
-        except Exception as error:
-            db.session.rollback()
-            return {'message' : 'Error creating user'}, 500
+        db.session.add(new_user)
+        db.session.commit()
+        
     
     def get_user(self, user_id):
         """Returns user information by user_id"""
