@@ -112,14 +112,17 @@ def get_date_ranges():
     - Dictionary with start and end dates for the current and previous months.
     """
     today = datetime.today()
+    if today.month == 1:
+        first_day_prev_month = datetime(today.year -1, 12, 1)
+        last_day_prev_month = datetime(today.year -1, 12, 1) - timedelta(days=1)
+    else:
+        first_day_prev_month = datetime(today.year, today.month - 1, 1)
+        last_day_prev_month = datetime(today.year, today.month, 1) - timedelta(days=1)
+        
     first_day_current_month = datetime(today.year, today.month, 1)
-    last_day_current_month = datetime(today.year, today.month + 1, 1) - timedelta(days=1)
-    first_day_prev_month = datetime(today.year, today.month - 1, 1)
-    last_day_prev_month = datetime(today.year, today.month, 1) - timedelta(days=1)
-    
+    last_day_current_month = datetime(today.year, today.month + 1, 1) - timedelta(days=1)   
     date_ranges = {
         'current': {'start': first_day_current_month, 'end': last_day_current_month},
         'previous': {'start': first_day_prev_month, 'end': last_day_prev_month}
         }
     return date_ranges
-
