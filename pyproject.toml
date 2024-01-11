@@ -9,7 +9,7 @@ packages = [{include = "unusual_spending"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 Flask-SQLAlchemy = "^3.0.5"
-Werkzeug = "^3.0.0"
+Werkzeug = "^2.0.1"
 flask-migrate = "^4.0.4"
 mysql-connector-python = "^8.0.27"
 sendgrid = "^6.10.0"

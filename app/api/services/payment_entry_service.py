@@ -50,7 +50,7 @@ class PaymentEntryService:
         error_messages = []
         if context == 'create' or context == 'update':
             if 'amount' not in data:
-                error_messages.append("Amount is missing")
+                error_messages.append("Please provide a valid amount")
             else:
                 try:
                     amount = float(data['amount'])
@@ -60,14 +60,14 @@ class PaymentEntryService:
                     error_messages.append("Invalid amount format. It must be a number.")
 
             if 'payment_category' not in data:
-                error_messages.append("Payment category is missing")
+                error_messages.append("Please provide a payment category")
             else:
                 valid_categories = [category.value for category in PaymentCategory]
                 if data['payment_category'] not in valid_categories:
                     error_messages.append("Invalid payment category")
                     
             if 'transaction_date' not in data:
-                error_messages.append("Transaction date is missing")
+                error_messages.append("Please provide a transaction date")
             else:
                 try:
                     datetime.strptime(data['transaction_date'], '%Y-%m-%d').date()                
