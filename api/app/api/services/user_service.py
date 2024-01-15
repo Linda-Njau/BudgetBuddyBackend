@@ -46,8 +46,10 @@ class UserService:
             else:
                 if not self.is_valid_format(data['email']):
                     error_messages.append("Invalid email format")
-                elif context == 'create' and self.is_email_taken(data['email']):
+                if context == 'create' and self.is_email_taken(data['email']):
                     error_messages.append("Email address already in use")
+                if context == 'create' and self.is_username_taken(data['username']):
+                    error_messages.append("Username already in use")
                     
             if 'password' not in data:
                 error_messages.append("Please provide a password")
@@ -60,11 +62,14 @@ class UserService:
                 error_messages.append("Username must be at least 3 characters long")
         
         if error_messages:
+            print("Validation failed. Errors:", error_messages)
             return False, error_messages
         return True, None
     
-    def is_username_taken(self, username, user_id):
-        existing_user = User.query.filter(User.username == username, User.user_id != user_id).first()
+    def is_username_taken(self, username):
+        existing_user = User.query.filter_by(username=username).first()
+        if existing_user:
+            print(f"Username '{username}' already in use.")
         return existing_user is not None
 
     def is_valid_format(self, email):
@@ -73,10 +78,17 @@ class UserService:
     
     def is_email_taken(self, email):
         existing_user = User.query.filter_by(email=email).first()
+        if existing_user:
+            print(f"email '{email}' already in use")
         return existing_user is not None
     
-    def create_user(self, data):
+    def create_user(self, data, context='create'):
         """Creates new user"""
+        is_valid, errors = self.is_valid_user(data, context)
+        
+        if not is_valid:
+            return get_error_message(errors, 400)
+        
         email = data.get('email')
         password = data.get('password')
         username = data.get('username')
@@ -95,7 +107,7 @@ class UserService:
         db.session.add(new_user)
         db.session.commit()
         
-    
+        return get_success_message({'user_id': new_user.user_id}), 201
     def get_user(self, user_id):
         """Returns user information by user_id"""
         with db.session() as session:

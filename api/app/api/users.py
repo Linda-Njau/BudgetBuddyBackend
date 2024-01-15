@@ -10,7 +10,7 @@ def create_user():
     print("Requested endpoint: / (create_user)")
     data = request.get_json()
     response = user_service.create_user(data)
-    return jsonify(response), 201
+    return jsonify(response)
 
 @users.route('/users/<int:user_id>', methods=['GET'], strict_slashes=False)
 def get_user(user_id):
