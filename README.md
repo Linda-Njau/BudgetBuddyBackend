@@ -91,18 +91,63 @@ To send emails using SendGrid, you need to obtain an API key. Follow these steps
    - Save the file
  - Now you can use the `sendgrid_api_key` variable in your code to authenticate with SendGrid and send emails.
 
+
+## Features
+The following are the main features offered by BudgetBuddy:
+* Automated email notification system whenever spending exceeds a certain threshold.
+* Recording expenditure according to different categories.
+* Filtering system by month and category
+
 ## Usage
 To use BudgetBuddy, follow the following steps:
 1. Create an account.
 2. Add your expenditure records by specifying the amount, date, and category.
 3. Easily Filter and view your expenditure by month and category.
 4. Keep an eye on your email for overspending notifications.
-   
-## Features
-The following are the main features offered by BudgetBuddy:
-* Automated email notification system whenever spending exceeds a certain threshold.
-* Recording expenditure according to different categories.
-* Filtering system by month and category
+
+## API Endpoints
+**USERS**
+| HTTP Verbs | Endpoints | Action |
+| --- | --- | --- |
+| POST | /users | Sign up a new user account |
+| POST | /login | Login an existing user |
+| GET | /users/<int:user_id> | Retrieve a user's data|
+| GET | /users | Retrieve all users and their respective data |
+| PUT |/users/<int:user_id> | Update all the information of a user |
+| PATCH | /users/<int:user_id> | Update select information of a user |
+| DELETE | /users/<int:user_id> | Delete a single user |
+
+**PAYMENT ENTRIES**
+| HTTP Verbs | Endpoints | Action |
+| --- | --- | --- |
+| POST | /payment_entries| Create a new payment entry |
+|GET | /payment_entries/<int:payment_entry_id> | Retrieve data for a specific payment entry |
+| GET | /users/<int:user_id>/payment_entries | Retrieve all the payment entries of a specific user|
+| PUT | /payment_entries/<int:payment_entry_id> | Update a payment entry's data |
+| PATCH |/payment_entries/<int:payment_entry_id> | Update select information of a payment entry |
+| DELETE | /payment_entries/<int:payment_entry_id> | Delete a single payment entry
+
+#### Query Parameters
+
+The `/users/<int:user_id>/payment_entries` endpoint supports the following optional query parameters to filter results:
+
+- **month (int):** Filter payment entries by month (1-12).
+- **payment_category (PaymentCategory Enum):** Filter payment entries by category.
+- **start_date (date):** Filter payment entries starting from the specified date.
+- **end_date (date):** Filter payment entries until the specified date.
+
+Example Usage:
+```plaintext
+GET /users/123/payment_entries?month=1&payment_category=FOOD&start_date=2023-01-01&end_date=2023-01-31
+```
+## Technologies
+1. **APScheduler**: In-process task scheduler with Cron-like capabilities
+2. **Flask**: A simple framework for building complex web applications
+3. **Sendgrid**: Email api third-party service.
+4. **SQLalchemy**: Database Abstraction Library.
+5. **SQLite**: file-based relational database commonly used for testing.
+6. **Nodejs**: Cross-platform runtime environment.
+7. **React**: Javascript Library for building user interfaces
 
 ## Contributing
 If you'd like to contribute, please fork the repository and use a feature
