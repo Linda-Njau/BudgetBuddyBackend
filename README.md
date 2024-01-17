@@ -3,22 +3,36 @@
 # BUDGET BUDDY
 > A budgeting app for recording expenditures in different categories with an automated email system for overspending alerts.
 
+## Table of Contents
+  - [Setup Guide](#setup-guide)
+    - [Prerequisites](#prerequisites)
+    - [Clone the Repository](#clone-the-repository)
+    - [Backend Setup](#backend-setup)
+    - [Frontend Setup](#frontend-setup)
+  - [Configuration](#configuration)
+  - [Features](#features)
+  - [Contributing](#contributing)
+  - [Licensing](#licensing)
+
 ## Setup Guide
+This section guides you on how to set up Budget Buddy on your own local enivronment.
+
 ### Prerequisites
 Before setting up Budget Buddy, ensure you have the following installed:
-- Python3
-- Node.js and npm
-- Poetry
+- **Python 3:** Budget Buddy requires Python 3.7 or later. You can download the latest version from [python.org](https://www.python.org/downloads/).
 
+- **Node.js and npm:** Ensure you have Node.js installed. Budget Buddy has been tested with Node.js version 14.0.0 and npm version 6.0.0. You can download the latest version of Node.js from [nodejs.org](https://nodejs.org/en/download/).
+
+- **Poetry:** Budget Buddy uses Poetry for managing Python dependencies. Make sure you have Poetry installed by following the instructions at [python-poetry.org](https://python-poetry.org/docs/#installation).
 ### Clone the Repository
 ```shell
 git clone git@github.com:Linda-Njau/BudgetBuddy.git
 ```
 
 ### Backend Setup
-Navigate into the BudgetBuddyApi folder.
+Navigate into the api folder.
 ```shell
-cd BudgetBuddyApi
+cd api
 ```
 Install Poetry(if not already installed)
 ```shell
@@ -39,10 +53,10 @@ python3 run.py
 This will start the backend server
 
 ### Frontend Setup
-Navigate into the BudgetBuddyClient folder.
+Navigate into the client folder.
 
 ```shell
-cd BackendBuddyClient
+cd client
 ```
 Install Node.js dependencies.
 
@@ -55,112 +69,45 @@ Start the react app.
 npm start
 ```
 
-
-## Developing
-
-Here's a brief intro about what a developer must do in order to start developing
-the project further:
-
-```shell
-git clone https://github.com/your/awesome-project.git
-cd awesome-project/
-packagemanager install
-```
-
-And state what happens step-by-step.
-
-### Building
-
-If your project needs some additional steps for the developer to build the
-project after some code changes, state them here:
-
-```shell
-./configure
-make
-make install
-```
-
-Here again you should state what actually happens when the code above gets
-executed.
-
-### Deploying / Publishing
-
-In case there's some step you have to take that publishes this project to a
-server, this is the right time to state it.
-
-```shell
-packagemanager deploy awesome-project -s server.com -u username -p password
-```
-
-And again you'd need to tell what the previous code actually does.
-
-## Features
-
-What's all the bells and whistles this project can perform?
-* What's the main functionality
-* You can also do another thing
-* If you get really randy, you can even do this
-
 ## Configuration
+To send emails using SendGrid, you need to obtain an API key. Follow these steps to setup your own SendGrid API key:
+1. **Create a New API Key:**
+    - Once logged in, navigate to the [SendGrid Dashboard](https://app.sendgrid.com/).
+   - In the left sidebar, click on "Settings" and then select "API Keys."
+   - Click the "Create API Key" button.
+   - Provide a name for your API key and select the appropriate permissions.
+   - Click "Create & View" to generate the API key.
 
-Here you should write what are all of the configurations a user can enter when
-using the project.
+2. **Copy Your API Key:**
+   - Copy the generated API key. This key is sensitive information, so handle it with care.
 
-#### Argument 1
-Type: `String`  
-Default: `'default value'`
+3. **Set Up Environment Variable:**
+   - Open the `.env` file in the root of your project.
+   - Add the following line, replacing `<your_sendgrid_api_key>` with the API key you copied:
 
-State what an argument does and how you can use it. If needed, you can provide
-an example below.
-
-Example:
-```bash
-awesome-project "Some other value"  # Prints "You're nailing this readme!"
-```
-
-#### Argument 2
-Type: `Number|Boolean`  
-Default: 100
-
-Copy-paste as many of these as you need.
+     ```plaintext
+     SENDGRID_API_KEY=<your_sendgrid_api_key>
+     ```
+   - Save the file
+ - Now you can use the `sendgrid_api_key` variable in your code to authenticate with SendGrid and send emails.
+ - 
+## Usage
+To use BudgetBuddy, follow the following steps:
+1. Create an account.
+2. Add your exepnditure records by specifying thr amount, date and category.
+3. Easily Filter and view your expenditure by month and category.
+4. Keep an eye on your email for overspending notifications.
+   
+## Features
+The follwing are the main features offered by BudgetBuddy:
+* Automated email notification system whenever spending exceeds a certain threshold.
+* Recording expenditure according to different categories.
+* Filtering system by month and category
 
 ## Contributing
-
-When you publish something open source, one of the greatest motivations is that
-anyone can just jump in and start contributing to your project.
-
-These paragraphs are meant to welcome those kind souls to feel that they are
-needed. You should state something like:
-
-"If you'd like to contribute, please fork the repository and use a feature
-branch. Pull requests are warmly welcome."
-
-If there's anything else the developer needs to know (e.g. the code style
-guide), you should link it here. If there's a lot of things to take into
-consideration, it is common to separate this section to its own file called
-`CONTRIBUTING.md` (or similar). If so, you should say that it exists here.
-
-## Links
-
-Even though this information can be found inside the project on machine-readable
-format like in a .json file, it's good to include a summary of most useful
-links to humans using your project. You can include links like:
-
-- Project homepage: https://your.github.com/awesome-project/
-- Repository: https://github.com/your/awesome-project/
-- Issue tracker: https://github.com/your/awesome-project/issues
-  - In case of sensitive bugs like security vulnerabilities, please contact
-    my@email.com directly instead of using issue tracker. We value your effort
-    to improve the security and privacy of this project!
-- Related projects:
-  - Your other project: https://github.com/your/other-project/
-  - Someone else's project: https://github.com/someones/awesome-project/
+If you'd like to contribute, please fork the repository and use a feature
+branch. Pull requests are warmly welcome.
 
 
 ## Licensing
-
-One really important part: Give your project a proper license. Here you should
-state what the license is and how to find the text version of the license.
-Something like:
-
-"The code in this project is licensed under MIT license."
+The code in this project is licensed under MIT license.
