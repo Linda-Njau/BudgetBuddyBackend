@@ -1,7 +1,7 @@
 ![Logo of the project](https://raw.githubusercontent.com/jehna/readme-best-practices/master/sample-logo.png)
 
 # BUDGET BUDDY
-> A budgeting app for recording expenditures in different categories with an automated email system for overspending alerts.
+ A budgeting app for recording expenditures in different categories with an automated email system for overspending alerts.
 
 ## Table of Contents
   - [Setup Guide](#setup-guide)
@@ -19,11 +19,12 @@ This section guides you on how to set up Budget Buddy on your own local enivronm
 
 ### Prerequisites
 Before setting up Budget Buddy, ensure you have the following installed:
-- **Python 3:** Budget Buddy requires Python 3.7 or later. You can download the latest version from [python.org](https://www.python.org/downloads/).
+- Budget Buddy requires [Python 3.7](https://www.python.org/downloads/) or later.
 
-- **Node.js and npm:** Ensure you have Node.js installed. Budget Buddy has been tested with Node.js version 14.0.0 and npm version 6.0.0. You can download the latest version of Node.js from [nodejs.org](https://nodejs.org/en/download/).
+- Ensure you have Node.js installed. Budget Buddy has been tested with [Node.js version 18.16.0](https://nodejs.org/en/blog/release/v18.16.0) and [npm version 9.5.1](https://www.npmjs.com/package/npm/v/9.5.1)
 
-- **Poetry:** Budget Buddy uses Poetry for managing Python dependencies. Make sure you have Poetry installed by following the instructions at [python-poetry.org](https://python-poetry.org/docs/#installation).
+- Budget Buddy uses [Poetry](https://python-poetry.org/docs/#installation) for managing Python dependencies.
+  
 ### Clone the Repository
 ```shell
 git clone git@github.com:Linda-Njau/BudgetBuddy.git
@@ -63,14 +64,14 @@ Install Node.js dependencies.
 ```shell
 npm install
 ```
-Start the react app.
+Start the React app.
 
 ```shell
 npm start
 ```
 
 ## Configuration
-To send emails using SendGrid, you need to obtain an API key. Follow these steps to setup your own SendGrid API key:
+To send emails using SendGrid, you need to obtain an API key. Follow these steps to set up your own SendGrid API key:
 1. **Create a New API Key:**
     - Once logged in, navigate to the [SendGrid Dashboard](https://app.sendgrid.com/).
    - In the left sidebar, click on "Settings" and then select "API Keys."
@@ -90,16 +91,16 @@ To send emails using SendGrid, you need to obtain an API key. Follow these steps
      ```
    - Save the file
  - Now you can use the `sendgrid_api_key` variable in your code to authenticate with SendGrid and send emails.
- - 
+
 ## Usage
 To use BudgetBuddy, follow the following steps:
 1. Create an account.
-2. Add your exepnditure records by specifying thr amount, date and category.
+2. Add your expenditure records by specifying the amount, date, and category.
 3. Easily Filter and view your expenditure by month and category.
 4. Keep an eye on your email for overspending notifications.
    
 ## Features
-The follwing are the main features offered by BudgetBuddy:
+The following are the main features offered by BudgetBuddy:
 * Automated email notification system whenever spending exceeds a certain threshold.
 * Recording expenditure according to different categories.
 * Filtering system by month and category
