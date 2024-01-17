@@ -1,6 +1,5 @@
-![Logo of the project](https://raw.githubusercontent.com/jehna/readme-best-practices/master/sample-logo.png)
-
-# BUDGET BUDDY
+# ![Logo of the project](./client/src/assets/logo_clear_background.png)
+ 
  A budgeting app for recording expenditures in different categories with an automated email system for overspending alerts.
 
 ## Table of Contents
