@@ -29,16 +29,16 @@ def get_payment_entries(user_id):
 def update_payment_entry(payment_entry_id):
     data = request.get_json()
     print(f"This is the data{data}")
-    response = payment_entry_service.update_payment_entry(payment_entry_id, data)
-    return jsonify(response), 200
+    response, status_code = payment_entry_service.update_payment_entry(payment_entry_id, data)
+    return jsonify(response), status_code
 
 @payment_entries.route('/payment_entries/<int:payment_entry_id>', methods=['PATCH'], strict_slashes=False)
 def patch_payment_entry(payment_entry_id):
     data = request.get_json()
-    response = payment_entry_service.update_payment_entry(payment_entry_id, data)
-    return jsonify(response), 200
+    response, status_code = payment_entry_service.update_payment_entry(payment_entry_id, data)
+    return jsonify(response), status_code
 
 @payment_entries.route('/payment_entries/<int:payment_entry_id>', methods=['DELETE'], strict_slashes=False)
 def delete_payment_entry(payment_entry_id):
-    response = payment_entry_service.delete_payment_entry(payment_entry_id)
-    return jsonify(response), 200
+    response, status_code = payment_entry_service.delete_payment_entry(payment_entry_id)
+    return jsonify(response), status_code
