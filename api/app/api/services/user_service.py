@@ -22,7 +22,7 @@ def get_error_message(errors, status_code):
         error_message = errors
     return {'error': error_message}, status_code
 
-def get_success_message(data, status_code=status.HTTP_200_OK):
+def get_success_message(data=None):
     """
     Create a standardized success response.
 
@@ -33,23 +33,32 @@ def get_success_message(data, status_code=status.HTTP_200_OK):
     Returns:
         dict: A dictionary containing the data and a success message, along with the status code.
     """
-    return {'data': data, 'message': 'success'}, status_code
+    return {'data': data, 'message': 'success'}
 
 class UserService:
     """Service for interacting with the users endpoints."""
     
     def is_valid_user(self, data, context):
+        """
+    Validates user data based on the specified context ('create' or 'update').
+
+    Args:
+        data (dict): The data dictionary containing user information.
+        context (str): The context in which the validation is being performed ('create' or 'update').
+
+    Returns:
+        tuple: A tuple containing a boolean indicating validity and a list of error messages, if any.
+    """
         error_messages = []
-        if context == 'create' or context == 'update':
+        if context == 'create':
             if 'email' not in data:
                 error_messages.append("Please provide an email address")
             else:
                 if not self.is_valid_format(data['email']):
                     error_messages.append("Invalid email format")
-                if context == 'create' and self.is_email_taken(data['email']):
+                if self.is_email_taken(data['email']):
                     error_messages.append("Email address already in use")
-                if context == 'create' and self.is_username_taken(data['username']):
-                    error_messages.append("Username already in use")
+                
                     
             if 'password' not in data:
                 error_messages.append("Please provide a password")
@@ -58,9 +67,25 @@ class UserService:
             
             if 'username' not in data:
                 error_messages.append("Please provide a username")
-            elif len(data['username']) < 3:
-                error_messages.append("Username must be at least 3 characters long")
-        
+            else:
+                if self.is_username_taken(data['username']):
+                    error_messages.append("Username already in use")
+                if len(data['username']) < 3:
+                    error_messages.append("Username must be at least 3 characters long")
+        if context == "update":
+            if 'email' in data:
+                if not self.is_valid_format(data['email']):
+                    error_messages.append("Invalid email format")
+                if self.is_email_taken(data['email']):
+                    error_messages.append("Email address already in use")
+            if 'password' in data:
+                if len(data['password']) < 8:
+                    error_messages.append("Password must be at least 8 characters long")
+            if 'username' in data:
+                if self.is_username_taken(data['username']):
+                    error_messages.append("Username already in use")
+                if len(data['username']) < 3:
+                    error_messages.append("Username must be at least 3 characters long")
         if error_messages:
             print("Validation failed. Errors:", error_messages)
             return False, error_messages
@@ -82,9 +107,18 @@ class UserService:
             print(f"email '{email}' already in use")
         return existing_user is not None
     
-    def create_user(self, data, context='create'):
-        """Creates new user"""
-        is_valid, errors = self.is_valid_user(data, context)
+    def create_user(self, data):
+        """
+    Creates a new user based on the provided data.
+
+    Args:
+        data (dict): The data dictionary containing user information.
+        context (str, optional): The context in which the creation is being performed ('create' by default).
+
+    Returns:
+        tuple: A tuple containing a response message and HTTP status code.
+    """
+        is_valid, errors = self.is_valid_user(data, context="create")
         
         if not is_valid:
             return get_error_message(errors, 400)
@@ -92,10 +126,6 @@ class UserService:
         email = data.get('email')
         password = data.get('password')
         username = data.get('username')
-        
-        if not email or not password or not username:
-            return {'error': 'missing required fields'}, 400
-        
         password_hash = generate_password_hash(password)
         
         new_user = User(
@@ -107,27 +137,42 @@ class UserService:
         db.session.add(new_user)
         db.session.commit()
         
-        return get_success_message({'user_id': new_user.user_id}), 201
+        if new_user.user_id:
+            return get_success_message({'user_id': new_user.user_id}), status.HTTP_201_CREATED
+
     def get_user(self, user_id):
-        """Returns user information by user_id"""
+        """
+        Retrieves user information based on the provided user_id.
+
+        Args:
+            user_id (int): The unique identifier of the user.
+
+        Returns:
+            tuple: A tuple containing user information and HTTP status code.
+        """
         with db.session() as session:
             user = session.get(User, user_id)
         if not user:
-            return {'error': 'User not found'}, 404
+            return get_error_message('User not found', status.HTTP_404_NOT_FOUND)
         
         user_data = {
             'user_id' : user.user_id,
             'email' : user.email,
             'username' : user.username
         }
-        return user_data
+        return get_success_message(user_data), status.HTTP_200_OK
     
     def get_all_users(self):
-        """Returns all user information"""
+        """
+    Retrieves information for all users in the system.
+
+    Returns:
+        tuple: A tuple containing user information and HTTP status code.
+    """
         with db.session() as session:
             users = session.query(User).all()
             if not users:
-                return {'error': 'No users were found'}, 404
+                return get_error_message('No users were found', status.HTTP_404_NOT_FOUND)
             
             users_data = []
             for user in users:
@@ -137,45 +182,52 @@ class UserService:
                     'username': user.username,
                 }
                 users_data.append(user_data)
-            return users_data
+            return get_success_message(users_data), status.HTTP_200_OK
 
     def update_user(self, user_id, data):
-        """update users by user_id"""
+        """
+    Updates user information based on the provided user_id and data.
+
+    Args:
+        user_id (int): The unique identifier of the user to be updated.
+        data (dict): The data dictionary containing updated user information.
+
+    Returns:
+        tuple: A tuple containing the updated user information and HTTP status code.
+    """
         with db.session() as session:
             user = session.get(User, user_id)
             if not user:
-                return {'error': 'User not found'}, 404
+                return get_error_message('User not found', status.HTTP_404_NOT_FOUND)
+            is_valid, error_response = self.is_valid_user(data, context="update")
+            if not is_valid:
+                return get_error_message(error_response, status.HTTP_400_BAD_REQUEST)
             user.update(
                 email=data.get('email'),
                 password=data.get('password'),
                 username=data.get('username')
             )
             db.session.commit()
-            return user.to_dict()
-    
-    def patch_user(self, user_id, data):
-        with db.session() as session:
-            user = session.get(User, user_id)
-            if not user:
-                return{"error": "User not found"}, 404
-            if 'email' in data:
-                user.email = (data['email'])
-            if 'password' in data:
-                user.password = (data['password'])
-            if 'username' in data:
-                user.username = (data['username'])
-            db.session.commit()
-            return {"message": "User updated successfully"}, 200
+            updated_user = user.to_dict()
+            return get_success_message(updated_user), status.HTTP_200_OK
     
     def delete_user(self, user_id):
-        """Delete a user by id."""
+        """
+    Deletes a user based on the provided user_id.
+
+    Args:
+        user_id (int): The unique identifier of the user to be deleted.
+
+    Returns:
+        tuple: A tuple containing a success message and HTTP status code.
+    """
         with db.session() as session:
             user = session.get(User, user_id)
         if not user:
-            return {'error' : 'User not found'}, 404
+            return get_error_message('User not found', status.HTTP_404_NOT_FOUND)
         db.session.delete(user)
         db.session.commit()
         
-        return {'message': 'User deleted successfully'}
+        return get_success_message(), status.HTTP_202_ACCEPTED
 
     

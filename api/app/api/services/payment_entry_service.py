@@ -224,7 +224,7 @@ class PaymentEntryService:
             
             is_valid, error_response = self.is_valid_payment_entry(data, context='update')
             if not is_valid:
-                return get_error_message(error_response, status.HTTP_400_BAD_REQUEST)
+                return get_error_message(error_response, 400)
             
             
            
