@@ -4,6 +4,7 @@
 """
 import os
 from datetime import datetime, timedelta
+from flask_api import status
 from app.models import PaymentCategory
 from app.api.services.payment_entry_service import PaymentEntryService
 from app.api.services.user_service import UserService
@@ -34,20 +35,25 @@ class BudgetMonitor:
         self.email_service = email_service
         self.user_service = user_service
 
-    def calculate_total_spending(self, entries):
+    def calculate_total_spending(self, entries_response):
         """
         Calculates the total spending from a list of payment entries.
 
         Parameters:
-        - entries: List of payment entries.
-
+          - entries_response: A tuple containing payment entries and a status code.
+          
         Returns:
         - Total spending as a float.
         """
-        total_spending = 0
-        for entry in entries:
-            total_spending += entry["amount"]
-        return total_spending
+        entries, status_code = entries_response
+        
+        if status_code == status.HTTP_200_OK:
+            total_spending = 0
+            for entry in entries:
+                total_spending += entry["amount"]
+            return total_spending
+        else:
+            return None
 
     def detect_overspending(self, user_id, payment_category, date_range):
         """
@@ -74,6 +80,9 @@ class BudgetMonitor:
         
         current_month_spending = self.calculate_total_spending(current_month_entries)
         previous_month_spending = self.calculate_total_spending(previous_month_entries)
+        
+        if previous_month_spending == 0:
+            return False, 0.0
         
         overspending_detected = current_month_spending >= 1.5 * previous_month_spending
         overspending_percent = ((current_month_spending - previous_month_spending) / previous_month_spending) * 100

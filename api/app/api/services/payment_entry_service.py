@@ -1,4 +1,4 @@
-from ...models import PaymentEntry, PaymentCategory
+from ...models import PaymentEntry, PaymentCategory, User
 from ... import db
 from datetime import datetime, timedelta
 from flask_api import status
@@ -20,19 +20,6 @@ def get_error_message(errors, status_code):
         error_message = errors
     return {'error': error_message}, status_code
 
-def get_success_message(data, status_code=status.HTTP_200_OK):
-    """
-    Create a standardized success response.
-
-    Args:
-        data (dict): The data to be included in the success response.
-        status_code (int, optional): The HTTP status code. Defaults to 200 OK.
-
-    Returns:
-        dict: A dictionary containing the data and a success message, along with the status code.
-    """
-    return {'data': data, 'message': 'success'}, status_code
-
 class PaymentEntryService:
     """Service for interacting with the payment entry endpoints"""
     
@@ -48,6 +35,9 @@ class PaymentEntryService:
             tuple: A tuple containing a boolean indicating validity and a list of error messages, if any.
         """
         error_messages = []
+        print(f"Validating data for context: {context}")
+        print(f"Data received: {data}")
+
         if context == 'create' or context == 'update':
             if 'amount' not in data:
                 error_messages.append("Please provide a valid amount")
@@ -73,7 +63,7 @@ class PaymentEntryService:
                     datetime.strptime(data['transaction_date'], '%Y-%m-%d').date()                
                 except ValueError:
                     error_messages.append("Invalid transaction date format. Use YYYY-MM-DD")
-        if context == "patch":
+        elif context == "patch":
             if 'amount' in data:
                 try:
                     amount = float(data['amount'])
@@ -91,6 +81,7 @@ class PaymentEntryService:
                 except ValueError:
                     error_messages.append("Invalid transaction date format. Use YYYY-MM-DD")
         if error_messages:
+            print(f"Validation failed. Error messages: {error_messages}")
             return False, error_messages
         return True, None
     
@@ -123,10 +114,16 @@ class PaymentEntryService:
         payment_category_value = data.get('payment_category')
         transaction_date_str = data.get('transaction_date')
         user_id = data.get('user_id')
-       
+        
+        with db.session() as session:
+            user = session.get(User, user_id)
+        if not user:
+            return get_error_message('User not found', status.HTTP_404_NOT_FOUND)
+        
         is_valid, error_response = self.is_valid_payment_entry(data, context='create')
         if not is_valid:
            return get_error_message(error_response, status.HTTP_400_BAD_REQUEST)
+        
         
         transaction_date = self.convert_str_to_date(transaction_date_str)
         payment_category = None
@@ -143,7 +140,7 @@ class PaymentEntryService:
         db.session.add(new_payment_entry)
         db.session.commit()
             
-        return get_success_message({"payment_entry_id": new_payment_entry.id}, status.HTTP_201_CREATED)
+        return {"payment_entry_id": new_payment_entry.id}, status.HTTP_201_CREATED
 
     def get_payment_entry(self, payment_entry_id):
         """
@@ -166,7 +163,7 @@ class PaymentEntryService:
             'transaction_date': payment_entry.transaction_date.strftime("%Y-%m-%d"),
             'payment_category': payment_entry.payment_category.value
         }
-        return payment_entry_data
+        return payment_entry_data, status.HTTP_200_OK
     
     def get_payment_entries(self, user_id, payment_category=None, month=None, start_date=None, end_date=None):
         """
@@ -184,7 +181,8 @@ class PaymentEntryService:
             list: A list of dictionaries, each representing a payment entry matching the criteria.
         """
         user_payment_entries_query = PaymentEntry.query.filter_by(user_id=user_id)
-        
+        if not user_payment_entries_query:
+            return get_error_message("No payment entries for this user", status.HTTP_404_NOT_FOUND)
         if payment_category:
             user_payment_entries_query = user_payment_entries_query.filter(PaymentEntry.payment_category == payment_category)
         if month:
@@ -203,7 +201,7 @@ class PaymentEntryService:
             }
             for payment_entry in user_payment_entries
         ]
-        return payment_entries
+        return (payment_entries), status.HTTP_200_OK
     
 
     def update_payment_entry(self, payment_entry_id, data):
@@ -224,7 +222,7 @@ class PaymentEntryService:
             
             is_valid, error_response = self.is_valid_payment_entry(data, context='update')
             if not is_valid:
-                return get_error_message(error_response, 400)
+                return get_error_message(error_response, status.HTTP_400_BAD_REQUEST)
             
             
            
@@ -235,7 +233,8 @@ class PaymentEntryService:
             payment_category=data.get('payment_category')
             )
             db.session.commit()
-            return get_success_message({"message": "Payment entry updated successfully"}, status.HTTP_200_OK)
+            updated_payment_entry = payment_entry.to_dict()
+            return updated_payment_entry, status.HTTP_200_OK
         
     def patch_payment_entry(self, payment_entry_id, data):
         """
@@ -272,7 +271,7 @@ class PaymentEntryService:
                 payment_entry.payment_category = (data['payment_category'])
             
             db.session.commit()
-            return get_success_message({"message": "Payment entry updated successfully"}, status.HTTP_200_OK)
+            return status.HTTP_200_OK
 
     def delete_payment_entry(self, payment_entry_id):
         """
@@ -290,5 +289,5 @@ class PaymentEntryService:
                 return get_error_message("Payment entry not found", status.HTTP_404_NOT_FOUND)
             db.session.delete(payment_entry)
             db.session.commit()
-            return get_success_message({"message": "Payment entry was successfully deleted"}, status.HTTP_204_NO_CONTENT)
+            return status.HTTP_204_NO_CONTENT
 
