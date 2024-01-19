@@ -54,8 +54,9 @@ class PaymentEntry(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
 
     def to_dict(self):
+        payment_category_value = self.payment_category.value if isinstance(self.payment_category, Enum) else self.payment_category
         return dict(id=self.id, amount=self.amount, created_at=self.created_at,
-                    updated_at=self.updated_at, transaction_date=self.transaction_date, payment_category=self.payment_category)
+                    updated_at=self.updated_at, transaction_date=self.transaction_date, payment_category=payment_category_value)
         
     def update(self, amount=None, transaction_date=None, payment_category=None):
         if amount:

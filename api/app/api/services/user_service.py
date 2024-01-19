@@ -22,19 +22,6 @@ def get_error_message(errors, status_code):
         error_message = errors
     return {'error': error_message}, status_code
 
-def get_success_message(data=None):
-    """
-    Create a standardized success response.
-
-    Args:
-        data (dict): The data to be included in the success response.
-        status_code (int, optional): The HTTP status code. Defaults to 200 OK.
-
-    Returns:
-        dict: A dictionary containing the data and a success message, along with the status code.
-    """
-    return {'data': data, 'message': 'success'}
-
 class UserService:
     """Service for interacting with the users endpoints."""
     
@@ -87,15 +74,13 @@ class UserService:
                 if len(data['username']) < 3:
                     error_messages.append("Username must be at least 3 characters long")
         if error_messages:
-            print("Validation failed. Errors:", error_messages)
             return False, error_messages
         return True, None
     
     def is_username_taken(self, username):
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
-            print(f"Username '{username}' already in use.")
-        return existing_user is not None
+            return existing_user is not None
 
     def is_valid_format(self, email):
         email_regex = r"^[^@\s]+@[^@\s]+\.[^@\s]+$"
@@ -104,8 +89,7 @@ class UserService:
     def is_email_taken(self, email):
         existing_user = User.query.filter_by(email=email).first()
         if existing_user:
-            print(f"email '{email}' already in use")
-        return existing_user is not None
+            return existing_user is not None
     
     def create_user(self, data):
         """
@@ -121,7 +105,7 @@ class UserService:
         is_valid, errors = self.is_valid_user(data, context="create")
         
         if not is_valid:
-            return get_error_message(errors, 400)
+            return get_error_message(errors, status.HTTP_400_BAD_REQUEST)
         
         email = data.get('email')
         password = data.get('password')
@@ -138,7 +122,7 @@ class UserService:
         db.session.commit()
         
         if new_user.user_id:
-            return get_success_message({'user_id': new_user.user_id}), status.HTTP_201_CREATED
+            return {'user_id': new_user.user_id}, status.HTTP_201_CREATED
 
     def get_user(self, user_id):
         """
@@ -160,7 +144,7 @@ class UserService:
             'email' : user.email,
             'username' : user.username
         }
-        return get_success_message(user_data), status.HTTP_200_OK
+        return user_data, status.HTTP_200_OK
     
     def get_all_users(self):
         """
@@ -182,7 +166,7 @@ class UserService:
                     'username': user.username,
                 }
                 users_data.append(user_data)
-            return get_success_message(users_data), status.HTTP_200_OK
+            return users_data, status.HTTP_200_OK
 
     def update_user(self, user_id, data):
         """
@@ -209,7 +193,7 @@ class UserService:
             )
             db.session.commit()
             updated_user = user.to_dict()
-            return get_success_message(updated_user), status.HTTP_200_OK
+            return updated_user, status.HTTP_200_OK
     
     def delete_user(self, user_id):
         """
@@ -228,6 +212,6 @@ class UserService:
         db.session.delete(user)
         db.session.commit()
         
-        return get_success_message(), status.HTTP_202_ACCEPTED
+        return 'User deleted successfully', status.HTTP_202_ACCEPTED
 
     
