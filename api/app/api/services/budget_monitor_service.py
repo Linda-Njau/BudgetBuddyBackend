@@ -81,7 +81,7 @@ class BudgetMonitor:
         current_month_spending = self.calculate_total_spending(current_month_entries)
         previous_month_spending = self.calculate_total_spending(previous_month_entries)
         
-        if previous_month_spending == 0:
+        if previous_month_spending or current_month_spending is None:
             return False, 0.0
         
         overspending_detected = current_month_spending >= 1.5 * previous_month_spending

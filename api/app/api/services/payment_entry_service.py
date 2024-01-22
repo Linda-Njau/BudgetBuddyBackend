@@ -73,6 +73,7 @@ class PaymentEntryService:
                     error_messages.append("Invalid amount format. It must be a number.")
             if 'payment_category' in data:
                 valid_categories = [category.value for category in PaymentCategory]
+                print(f'This are the valid categories: {valid_categories}')
                 if data['payment_category'] not in valid_categories:
                     error_messages.append("Invalid payment category")
             if 'transaction_date' in data:
@@ -180,18 +181,22 @@ class PaymentEntryService:
         Returns:
             list: A list of dictionaries, each representing a payment entry matching the criteria.
         """
-        user_payment_entries_query = PaymentEntry.query.filter_by(user_id=user_id)
-        if not user_payment_entries_query:
-            return get_error_message("No payment entries for this user", status.HTTP_404_NOT_FOUND)
-        if payment_category:
-            user_payment_entries_query = user_payment_entries_query.filter(PaymentEntry.payment_category == payment_category)
-        if month:
-            user_payment_entries_query = user_payment_entries_query.filter(db.func.extract('month', PaymentEntry.transaction_date) == month)
-        if start_date and end_date:
-            user_payment_entries_query = user_payment_entries_query.filter(PaymentEntry.transaction_date.between(start_date, end_date))
-        
-        user_payment_entries = user_payment_entries_query.all()
-        
+        with db.session() as session:
+            user = session.get(User, user_id)
+            if not user:
+                return get_error_message('User not found', status.HTTP_404_NOT_FOUND)
+            
+            user_payment_entries_query = PaymentEntry.query.filter_by(user_id=user_id)
+                
+            if payment_category:
+                user_payment_entries_query = user_payment_entries_query.filter(PaymentEntry.payment_category == payment_category)
+            if month:
+                user_payment_entries_query = user_payment_entries_query.filter(db.func.extract('month', PaymentEntry.transaction_date) == month)
+            if start_date and end_date:
+                user_payment_entries_query = user_payment_entries_query.filter(PaymentEntry.transaction_date.between(start_date, end_date))
+            
+            user_payment_entries = user_payment_entries_query.all()
+            
         payment_entries = [
             {
                 "id": payment_entry.id,
@@ -201,6 +206,8 @@ class PaymentEntryService:
             }
             for payment_entry in user_payment_entries
         ]
+        if not payment_entries:
+            return get_error_message("No payment entries for this user", status.HTTP_404_NOT_FOUND)
         return (payment_entries), status.HTTP_200_OK
     
 
