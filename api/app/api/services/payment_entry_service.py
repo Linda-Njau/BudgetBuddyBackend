@@ -258,7 +258,7 @@ class PaymentEntryService:
             if time_elapsed > time_limit:
                 return get_error_message("Payment Entry cannot be edited after 24 hours", status.HTTP_403_FORBIDDEN)
             
-            is_valid, error_response = self.is_valid_payment_entry(data, context="patch")
+            is_valid, error_response = self.is_valid_payment_entry(data, context='patch')
             if not is_valid:
                 return get_error_message(error_response, status.HTTP_400_BAD_REQUEST)
             
@@ -269,9 +269,9 @@ class PaymentEntryService:
                 payment_entry.transaction_date = transaction_date
             if 'payment_category' in data:
                 payment_entry.payment_category = (data['payment_category'])
-            
+            patched_payment_entry = payment_entry.to_dict()
             db.session.commit()
-            return status.HTTP_200_OK
+            return patched_payment_entry, status.HTTP_200_OK
 
     def delete_payment_entry(self, payment_entry_id):
         """
@@ -289,5 +289,5 @@ class PaymentEntryService:
                 return get_error_message("Payment entry not found", status.HTTP_404_NOT_FOUND)
             db.session.delete(payment_entry)
             db.session.commit()
-            return status.HTTP_204_NO_CONTENT
+            return "payment entry deleted successfully", status.HTTP_204_NO_CONTENT
 
