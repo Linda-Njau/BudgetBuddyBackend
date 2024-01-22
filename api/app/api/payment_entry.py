@@ -35,7 +35,7 @@ def update_payment_entry(payment_entry_id):
 @payment_entries.route('/payment_entries/<int:payment_entry_id>', methods=['PATCH'], strict_slashes=False)
 def patch_payment_entry(payment_entry_id):
     data = request.get_json()
-    response, status_code = payment_entry_service.update_payment_entry(payment_entry_id, data)
+    response, status_code = payment_entry_service.patch_payment_entry(payment_entry_id, data)
     return jsonify(response), status_code
 
 @payment_entries.route('/payment_entries/<int:payment_entry_id>', methods=['DELETE'], strict_slashes=False)
