@@ -14,8 +14,10 @@ def scheduled_budget_check(app):
     """
     Perform scheduled budget checks for all users and payment categories.
     """
+    print("Scheduled budget check started")
     with app.app_context():
         all_users, http_status = budget_monitor.user_service.get_all_users()
+        print(all_users)
         if http_status == status.HTTP_200_OK:
             for user in all_users:
                 user_id = user.get('user_id')

@@ -4,7 +4,6 @@
 """
 import os
 from datetime import datetime, timedelta
-from flask_api import status
 from app.models import PaymentCategory
 from app.api.services.payment_entry_service import PaymentEntryService
 from app.api.services.user_service import UserService
@@ -35,7 +34,7 @@ class BudgetMonitor:
         self.email_service = email_service
         self.user_service = user_service
 
-    def calculate_total_spending(self, entries_response):
+    def calculate_total_spending(self, entries):
         """
         Calculates the total spending from a list of payment entries.
 
@@ -45,15 +44,12 @@ class BudgetMonitor:
         Returns:
         - Total spending as a float.
         """
-        entries, status_code = entries_response
-        
-        if status_code == status.HTTP_200_OK:
-            total_spending = 0
-            for entry in entries:
-                total_spending += entry["amount"]
-            return total_spending
-        else:
-            return None
+
+        total_spending = 0
+        entries_list = [entries] if isinstance(entries, dict) else entries
+        for entry in entries_list:
+            total_spending += entry["amount"]
+        return total_spending
 
     def detect_overspending(self, user_id, payment_category, date_range):
         """
@@ -65,29 +61,29 @@ class BudgetMonitor:
         - date_range: Dictionary containing start and end dates for the current and previous months.
 
         Returns:
-        - Tuple: (True if overspending is detected, False otherwise, Percentage of overspending.
+        - Tuple: True if overspending is detected, False otherwise, Percentage of overspending.
         """
         current_month_entries = self.payment_entry_service.get_payment_entries(
         user_id, payment_category, start_date=date_range['current']['start'], end_date=date_range['current']['end']
         )
-
         previous_month_entries = self.payment_entry_service.get_payment_entries(
         user_id, payment_category, start_date=date_range['previous']['start'], end_date=date_range['previous']['end']
         )
-
         if not current_month_entries or not previous_month_entries:
             return False, 0.0
         
         current_month_spending = self.calculate_total_spending(current_month_entries)
         previous_month_spending = self.calculate_total_spending(previous_month_entries)
         
-        if previous_month_spending or current_month_spending is None:
+        if previous_month_spending is None or current_month_spending is None:
+            return False, 0.0
+        
+        if previous_month_spending > current_month_spending:
             return False, 0.0
         
         overspending_detected = current_month_spending >= 1.5 * previous_month_spending
         overspending_percent = ((current_month_spending - previous_month_spending) / previous_month_spending) * 100
 
-        
         if overspending_detected:
             self.notify_overspending(user_id, payment_category, overspending_percent)
         return overspending_detected, overspending_percent
