@@ -28,7 +28,6 @@ def get_payment_entries(user_id):
 @payment_entries.route('/payment_entries/<int:payment_entry_id>', methods=['PUT'], strict_slashes=False)
 def update_payment_entry(payment_entry_id):
     data = request.get_json()
-    print(f"This is the data{data}")
     response, status_code = payment_entry_service.update_payment_entry(payment_entry_id, data)
     return jsonify(response), status_code
 

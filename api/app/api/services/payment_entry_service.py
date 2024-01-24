@@ -35,8 +35,6 @@ class PaymentEntryService:
             tuple: A tuple containing a boolean indicating validity and a list of error messages, if any.
         """
         error_messages = []
-        print(f"Validating data for context: {context}")
-        print(f"Data received: {data}")
 
         if context == 'create' or context == 'update':
             if 'amount' not in data:
@@ -63,6 +61,7 @@ class PaymentEntryService:
                     datetime.strptime(data['transaction_date'], '%Y-%m-%d').date()                
                 except ValueError:
                     error_messages.append("Invalid transaction date format. Use YYYY-MM-DD")
+                    
         elif context == "patch":
             if 'amount' in data:
                 try:
@@ -73,7 +72,6 @@ class PaymentEntryService:
                     error_messages.append("Invalid amount format. It must be a number.")
             if 'payment_category' in data:
                 valid_categories = [category.value for category in PaymentCategory]
-                print(f'This are the valid categories: {valid_categories}')
                 if data['payment_category'] not in valid_categories:
                     error_messages.append("Invalid payment category")
             if 'transaction_date' in data:
@@ -82,7 +80,6 @@ class PaymentEntryService:
                 except ValueError:
                     error_messages.append("Invalid transaction date format. Use YYYY-MM-DD")
         if error_messages:
-            print(f"Validation failed. Error messages: {error_messages}")
             return False, error_messages
         return True, None
     
