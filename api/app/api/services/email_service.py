@@ -10,6 +10,7 @@ class EmailService:
         Parameters:
         - api_key (str): The API key for the SendGrid service.
         """
+        
         self.sg = sendgrid.SendGridAPIClient(api_key=api_key)
         self.from_email = os.getenv("FROM_EMAIL_ADDRESS")
 
