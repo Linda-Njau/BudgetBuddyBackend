@@ -110,7 +110,7 @@ class TestUserEndpoints(unittest.TestCase):
             self.assertEqual(response_data, expected_error_messages)
               
              
-    def test_update_user_invalid_user_id(self):
+    def test_update_user_invalid_id(self):
         with self.app.app_context():
             updated_data = {
                 'email': 'updateduser@example.com',
