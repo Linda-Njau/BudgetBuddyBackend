@@ -1,7 +1,5 @@
 import unittest
-
-from app.api.payment_entry import delete_payment_entry
-from .. import create_app
+from app import create_app
 from app import db
 from app.models import User, PaymentEntry, PaymentCategory
 from datetime import datetime, date

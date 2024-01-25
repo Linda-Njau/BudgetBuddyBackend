@@ -1,7 +1,7 @@
 from werkzeug.security import generate_password_hash
 import re
-from ...models import User
-from ... import db
+from ..models import User
+from .. import db
 from flask_api import status
 
 

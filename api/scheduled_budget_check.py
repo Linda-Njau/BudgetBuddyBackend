@@ -1,10 +1,10 @@
 import os
 from flask_api import status
 from app.models import PaymentCategory
-from app.api.services.budget_monitor_service import BudgetMonitor, get_date_ranges
-from app.api.services.payment_entry_service import PaymentEntryService
-from app.api.services.email_service import EmailService
-from app.api.services.user_service import UserService
+from app.services.budget_monitor_service import BudgetMonitor, get_date_ranges
+from app.services.payment_entry_service import PaymentEntryService
+from app.services.email_service import EmailService
+from app.services.user_service import UserService
 
 
 api_key = os.environ.get('SENDGRID_API_KEY')

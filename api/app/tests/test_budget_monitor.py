@@ -1,4 +1,4 @@
-from app.api.services.budget_monitor_service import BudgetMonitor
+from app.services.budget_monitor_service import BudgetMonitor
 import unittest
 from datetime import datetime, timedelta
 from unittest.mock import MagicMock

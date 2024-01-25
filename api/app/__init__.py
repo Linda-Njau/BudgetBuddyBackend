@@ -25,9 +25,9 @@ def create_app(environment: str = 'development'):
     CORS(app)
 
 
-    from .api.auth import auth
-    from .api.users import users
-    from .api.payment_entry import payment_entries
+    from .auth import auth
+    from .user_endpoints import users
+    from .payment_entry_endpoints import payment_entries
     
     
     app.register_blueprint(auth)
