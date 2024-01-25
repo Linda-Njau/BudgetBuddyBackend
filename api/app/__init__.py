@@ -35,11 +35,7 @@ def create_app(environment: str = 'development'):
     app.register_blueprint(payment_entries)
     
     # app.register_blueprint(payment_categories)
-    
-    @app.before_request
-    def before_request():
-        print("Requested endpoint:", request.endpoint)
-     
+
     if environment == 'testing':
         with app.app_context():
             create_database(app)

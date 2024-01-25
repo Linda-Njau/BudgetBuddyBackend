@@ -50,7 +50,6 @@ class TestPaymentEntriesEndpoints(unittest.TestCase):
             response= self.client.post('/payment_entries', json=payment_entry_data)
             self.assertEqual(response.status_code, 201)
             response_data = response.get_json()
-            print(response_data)
             payment_entry_id = response_data.get('payment_entry_id')
             self.assertIsNotNone(payment_entry_id)
             with db.session() as session:
@@ -70,7 +69,6 @@ class TestPaymentEntriesEndpoints(unittest.TestCase):
             response= self.client.post('/payment_entries', json=invalid_data)
             self.assertEqual(response.status_code, 400)
             response_data = response.get_json()
-            print(response_data)
             expected_error_message = {'error': 'Amount must be positive number.; Invalid payment category; Invalid transaction date format. Use YYYY-MM-DD'}
             self.assertEqual(response_data, expected_error_message)
         
@@ -85,7 +83,6 @@ class TestPaymentEntriesEndpoints(unittest.TestCase):
             response= self.client.post('/payment_entries', json=payment_entry_data)
             self.assertEqual(response.status_code, 404)
             response_data = response.get_json()
-            print(response_data)
             expected_error_message ={'error': 'User not found'}
             self.assertEqual(response_data, expected_error_message)
     
@@ -196,7 +193,6 @@ class TestPaymentEntriesEndpoints(unittest.TestCase):
             response = self.client.patch(f'/payment_entries/{self.test_payment_entry_id}', json=(invalid_data))
             self.assertEqual(response.status_code, 400)
             response_data = response.get_json()
-            print(response_data)
             expected_error_message = {'error': 'Amount must be positive number.; Invalid payment category; Invalid transaction date format. Use YYYY-MM-DD'}
             self.assertEqual(response_data, expected_error_message)
             
@@ -287,7 +283,6 @@ class TestPaymentEntriesEndpoints(unittest.TestCase):
             response = self.client.get(f'/users/{user_id}/payment_entries?month=1')
             self.assertEqual(response.status_code, 200)
             response_data = response.get_json()
-            print(response_data)
             self.assertEqual(len(response_data), 3)
             
             response = self.client.get(f'/users/{user_id}/payment_entries?payment_category=FOOD&month=1')
