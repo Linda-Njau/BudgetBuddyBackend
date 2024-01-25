@@ -5,9 +5,9 @@
 import os
 from datetime import datetime, timedelta
 from app.models import PaymentCategory
-from app.api.services.payment_entry_service import PaymentEntryService
-from app.api.services.user_service import UserService
-from app.api.services.email_service import EmailService
+from app.services.payment_entry_service import PaymentEntryService
+from app.services.user_service import UserService
+from app.services.email_service import EmailService
 
 
 from_email = os.environ.get('FROM_EMAIL_ADDRESS')
@@ -39,7 +39,7 @@ class BudgetMonitor:
         Calculates the total spending from a list of payment entries.
 
         Parameters:
-          - entries_response: A tuple containing payment entries and a status code.
+          - entries: A list of payment entry dictionaries.
           
         Returns:
         - Total spending as a float.
@@ -69,7 +69,8 @@ class BudgetMonitor:
         previous_month_entries = self.payment_entry_service.get_payment_entries(
         user_id, payment_category, start_date=date_range['previous']['start'], end_date=date_range['previous']['end']
         )
-        if not current_month_entries or not previous_month_entries:
+        
+        if 'error' in current_month_entries[0] or 'error' in  previous_month_entries[0]:
             return False, 0.0
         
         current_month_spending = self.calculate_total_spending(current_month_entries)

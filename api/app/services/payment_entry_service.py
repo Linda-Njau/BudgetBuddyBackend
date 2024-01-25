@@ -1,5 +1,5 @@
-from ...models import PaymentEntry, PaymentCategory, User
-from ... import db
+from ..models import PaymentEntry, PaymentCategory, User
+from .. import db
 from datetime import datetime, timedelta
 from flask_api import status
 

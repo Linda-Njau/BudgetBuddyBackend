@@ -1,4 +1,4 @@
-from ..models import PaymentCategory, User
+from .models import PaymentCategory, User
 from flask import Blueprint, jsonify, request
 from .services.user_service import UserService
 
