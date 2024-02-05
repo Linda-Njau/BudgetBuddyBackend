@@ -10,6 +10,10 @@
     - [Frontend Setup](#frontend-setup)
   - [Configuration](#configuration)
   - [Features](#features)
+  - [Usage](#usage)
+  - [Api Endpoints](#api-endpoints)
+  - [Technologies](#technologies)
+  - [Testing](#testing)
   - [Contributing](#contributing)
   - [Licensing](#licensing)
 
@@ -140,6 +144,33 @@ Example Usage:
 ```plaintext
 GET /users/123/payment_entries?month=1&payment_category=FOOD&start_date=2023-01-01&end_date=2023-01-31
 ```
+## Testing
+ To run Tests:
+- Navigate to the /api folder
+
+```shell
+cd api
+```
+
+1. To runs all the tests:
+```shell
+python3 -m unittest discover -v
+```
+
+2. To run a specific Test suite:
+```shell
+python3 -m unittest app.tests.test_user.TestUserEndpoints
+```
+- Replace "test_user" with the filename and "TestUserEndpoints" with the class name.
+
+3. To run a single test:
+```shell
+python3 -m unittest app.tests.test_payment_entries.TestPaymentEntriesEndpoints.test_create_payment_entry
+```
+- Replace "test_payment_entries" with the filename, "TestPaymentEntriesEndpoints" with the class name and "test_create_payment_entry" with the name of the test function.
+
+
+
 ## Technologies
 1. **APScheduler**: In-process task scheduler with Cron-like capabilities.
 2. **Flask**: A simple framework for building complex web applications.
