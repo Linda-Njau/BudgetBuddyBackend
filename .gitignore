@@ -1,7 +1,7 @@
 #python
-__pycache__/
+api/**/__pycache__/
 # dependencies
-/node_modules
+client/node_modules
 /.pnp
 .pnp.js
 
