@@ -19,6 +19,7 @@ flask-crontab = "^0.1.2"
 flask-apscheduler = "^1.13.0"
 flask = "2.3.3"
 flask-api = "^3.1"
+gunicorn = "^21.2.0"
 
 
 [tool.poetry.group.dev.dependencies]
