@@ -24,7 +24,9 @@ def create_app(environment: str = 'development'):
         environment = 'production'
         
     if environment == 'production':
-        app.config.from_object('app.config.ProductionConfig')
+        DATABASE_URL = os.environ.get('DATABASE_URL')
+        conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
         
         
     db.init_app(app)
@@ -33,9 +35,6 @@ def create_app(environment: str = 'development'):
         scheduler.start()
     
     CORS(app)
-
-    if 'DATABASE_URL' in os.environ:
-         conn = psycopg2.connect(os.environ['DATABASE_URL'], sslmode='require')
          
     from .auth import auth
     from .user_endpoints import users
