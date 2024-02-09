@@ -1,8 +1,10 @@
+import os
+import psycopg2
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_apscheduler import APScheduler
-from .config import Config
+from .config import Config, DevelopmentConfig
 from os import path
 
 
@@ -15,8 +17,16 @@ DB_NAME = "database.db"
 def create_app(environment: str = 'development'):
     """Create a new flask application"""
     app = Flask(__name__)
-    environment_config = Config[environment]
+    environment_config = Config.get(environment, DevelopmentConfig)
     app.config.from_object(environment_config)
+    
+    if 'DATABASE_URL' in os.environ:
+        environment = 'production'
+        
+    if environment == 'production':
+        app.config.from_object('app.config.ProductionConfig')
+        
+        
     db.init_app(app)
     if environment != 'testing':
         scheduler.init_app(app)
@@ -24,7 +34,9 @@ def create_app(environment: str = 'development'):
     
     CORS(app)
 
-
+    if 'DATABASE_URL' in os.environ:
+         conn = psycopg2.connect(os.environ['DATABASE_URL'], sslmode='require')
+         
     from .auth import auth
     from .user_endpoints import users
     from .payment_entry_endpoints import payment_entries
