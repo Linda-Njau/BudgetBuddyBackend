@@ -11,6 +11,9 @@ class BaseConfig(object):
 class DevelopmentConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:root@localhost/unusual_spending'
 
+
+class ProductionConfig(BaseConfig):
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 class TestingConfig(BaseConfig):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///test_database.db'
@@ -18,4 +21,5 @@ class TestingConfig(BaseConfig):
 Config = {
     "testing": TestingConfig,
     "development": DevelopmentConfig,
+    "production": ProductionConfig
 }
