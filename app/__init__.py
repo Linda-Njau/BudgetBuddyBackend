@@ -20,16 +20,15 @@ def create_app(environment: str = 'development'):
     
     if 'DATABASE_URL' in os.environ:
         environment = 'production'
-        print("Setting environment to 'production' due to DATABASE_URL in environment variables.")
         
     environment_config = Config.get(environment, DevelopmentConfig)
     app.config.from_object(environment_config)
     
-    print(f"Environment: {environment}")
+    print(f"#######Environment: {environment}")
         
     if environment == 'production':
-        DATABASE_URL = os.environ.get('DATABASE_URL?sslmode=require').replace('postgres://', 'postgresql://')
-        print(f"DATABASE_URL: {DATABASE_URL}")
+        DATABASE_URL = os.environ.get('DATABASE_URL').replace('postgres://', 'postgresql://')
+        print(f"--------------DATABASE_URL: {DATABASE_URL}")
         conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
         print("Production environment configured.")
