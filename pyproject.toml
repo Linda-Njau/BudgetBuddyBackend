@@ -10,16 +10,16 @@ packages = [{include = "unusual_spending"}]
 python = "^3.10"
 Flask-SQLAlchemy = "^3.0.5"
 Werkzeug = "^2.0.1"
-flask-migrate = "^4.0.4"
 mysql-connector-python = "^8.0.27"
 sendgrid = "^6.10.0"
 flask-cors = "^4.0.0"
 flask-jwt-extended = "^4.5.2"
 flask-crontab = "^0.1.2"
 flask-apscheduler = "^1.13.0"
-flask = "2.3.3"
 flask-api = "^3.1"
 gunicorn = "^21.2.0"
+flask = "<3.0.0"
+flask-migrate = "^4.0.5"
 
 
 [tool.poetry.group.dev.dependencies]

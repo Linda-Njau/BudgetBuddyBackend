@@ -4,10 +4,10 @@
 """
 import os
 from datetime import datetime, timedelta
-from app.models import PaymentCategory
-from app.services.payment_entry_service import PaymentEntryService
-from app.services.user_service import UserService
-from app.services.email_service import EmailService
+from ..models import PaymentCategory
+from ..services.payment_entry_service import PaymentEntryService
+from ..services.user_service import UserService
+from ..services.email_service import EmailService
 
 
 from_email = os.environ.get('FROM_EMAIL_ADDRESS')
