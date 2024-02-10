@@ -1,6 +1,6 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-from app import db
+from . import db
 from enum import Enum
 from sqlalchemy import Enum as SQLEnum
 
