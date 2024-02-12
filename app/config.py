@@ -9,7 +9,7 @@ class BaseConfig(object):
 
 
 class DevelopmentConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:root@localhost/unusual_spending'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://root:root@localhost:5432/unusual_spending'
 
 
 class ProductionConfig(BaseConfig):

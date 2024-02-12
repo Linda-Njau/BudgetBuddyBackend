@@ -12,8 +12,6 @@ db = SQLAlchemy()
 scheduler = APScheduler()
 
 from .models import *
-
-DB_NAME = "database.db"
 def create_app(environment: str = 'development'):
     """Create a new flask application"""
     app = Flask(__name__)
@@ -50,15 +48,14 @@ def create_app(environment: str = 'development'):
 
     if environment == 'testing':
         with app.app_context():
-            create_database(app)
+            DB_NAME = 'database.db'
+            if not path.exists('unusual_spending/' + DB_NAME):
+                db.create_all()
+            
     
-    from ..scheduled_budget_check import scheduled_budget_check
+    from app.services.scheduled_budget_check import scheduled_budget_check
     if environment != 'testing':
         with app.app_context():
             scheduled_budget_check(app)
     return app
-
-def create_database(app):
-    """Create a database if it doesn't already exist"""
-    if not path.exists('unusual_spending/' + DB_NAME):
-        db.create_all()
+    
