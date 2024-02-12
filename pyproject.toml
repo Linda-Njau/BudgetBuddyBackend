@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "unusual-spending"
+name = "budgetbuddybackend"
 version = "0.1.0"
 description = ""
 authors = ["Linda-Njau <lindanjau21@gmail.com>"]
 readme = "README.md"
-packages = [{include = "unusual_spending"}]
+
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -20,6 +20,7 @@ flask-api = "^3.1"
 gunicorn = "^21.2.0"
 flask = "<3.0.0"
 flask-migrate = "^4.0.5"
+psycopg2-binary = "^2.9.9"
 
 
 [tool.poetry.group.dev.dependencies]
