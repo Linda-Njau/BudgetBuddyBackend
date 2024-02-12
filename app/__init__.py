@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_apscheduler import APScheduler
 from .config import Config, DevelopmentConfig
+from sqlalchemy.exc import ProgrammingError
 from os import path
 
 
@@ -55,7 +56,10 @@ def create_app(environment: str = 'development'):
     
     from app.services.scheduled_budget_check import scheduled_budget_check
     if environment != 'testing':
-        with app.app_context():
-            scheduled_budget_check(app)
+        try:
+            with app.app_context():
+                scheduled_budget_check(app)
+        except ProgrammingError:
+            pass
     return app
     
