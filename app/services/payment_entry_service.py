@@ -184,15 +184,17 @@ class PaymentEntryService:
                 return get_error_message('User not found', status.HTTP_404_NOT_FOUND)
             
             user_payment_entries_query = PaymentEntry.query.filter_by(user_id=user_id)
-                
+        
             if payment_category:
-                user_payment_entries_query = user_payment_entries_query.filter(PaymentEntry.payment_category == payment_category)
+                    user_payment_entries_query = user_payment_entries_query.filter(PaymentEntry.payment_category == payment_category)
+            
             if month:
                 user_payment_entries_query = user_payment_entries_query.filter(db.func.extract('month', PaymentEntry.transaction_date) == month)
             if start_date and end_date:
                 user_payment_entries_query = user_payment_entries_query.filter(PaymentEntry.transaction_date.between(start_date, end_date))
             
             user_payment_entries = user_payment_entries_query.all()
+            
             
         payment_entries = [
             {
