@@ -9,7 +9,7 @@ class PaymentCategory(Enum):
     FOOD = "FOOD"
     TRAVEL = "TRAVEL"
     UTILITIES = "UTILITIES"
-    TRANSPORTATION = "TRANSPORT"
+    TRANSPORTATION = "TRANSPORTATION"
     ENTERTAINMENT = "ENTERTAINMENT"
     
 class User(db.Model):

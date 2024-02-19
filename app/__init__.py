@@ -1,6 +1,7 @@
 import os
 import psycopg2
 from flask import Flask
+from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_apscheduler import APScheduler
@@ -11,6 +12,7 @@ from os import path
 
 db = SQLAlchemy()
 scheduler = APScheduler()
+jwt = JWTManager()
 
 from .models import *
 def create_app(environment: str = 'development'):
@@ -33,7 +35,8 @@ def create_app(environment: str = 'development'):
     if environment != 'testing':
         scheduler.init_app(app)
         scheduler.start()
-    
+        
+    jwt.init_app(app)
     CORS(app)
          
     from .auth import auth
