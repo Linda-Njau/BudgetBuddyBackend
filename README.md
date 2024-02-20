@@ -1,6 +1,7 @@
-# ![Logo of the project](./client/src/assets/logo_clear_background.png)
+# ![Logo of the project](./logo_clear_background.png)
  
  A budgeting app designed to track expenses across various in categories with an automated email system for overspending alerts.
+ This repository is dedicated to the Backend. To view Frontend, please click [here](https://github.com/Linda-Njau/BudgetBuddyFrontend)
 
 ## Table of Contents
   - [Setup Guide](#setup-guide)
@@ -24,19 +25,18 @@ This section provides step-by-step guidance for setting up Budget Buddy on your 
 Before setting up Budget Buddy, ensure you have the following installed:
 - Budget Buddy requires [Python 3.7](https://www.python.org/downloads/) or later.
 
-- Ensure you have Node.js installed. Budget Buddy has been tested with [Node.js version 18.16.0](https://nodejs.org/en/blog/release/v18.16.0) and [npm version 9.5.1](https://www.npmjs.com/package/npm/v/9.5.1).
-
 - Budget Buddy uses [Poetry](https://python-poetry.org/docs/#installation) for managing Python dependencies.
   
 ### Clone the Repository
 ```shell
-git clone git@github.com:Linda-Njau/BudgetBuddy.git
+git clone git@github.com:Linda-Njau/BudgetBuddyBackend.git
 ```
 
 ### Backend Setup
-Navigate into the api folder.
+Navigate into the BudgetBuddyBackend folder.
+
 ```shell
-cd api
+cd BudgetBuddyBackend
 ```
 Install Poetry(if not already installed).
 ```shell
@@ -55,23 +55,6 @@ Run the Flask app
 python3 run.py
 ```
 This will start the backend server.
-
-### Frontend Setup
-Navigate into the client folder.
-
-```shell
-cd client
-```
-Install Node.js dependencies.
-
-```shell
-npm install
-```
-Start the React app.
-
-```shell
-npm start
-```
 
 ## Configuration
 To access the email notification feature, you need to obtain a SendGrid API key. Follow these steps to set up your own SendGrid API key:
@@ -146,11 +129,7 @@ GET /users/123/payment_entries?month=1&payment_category=FOOD&start_date=2023-01-
 ```
 ## Testing
  To run Tests:
-- Navigate to the /api folder
-
-```shell
-cd api
-```
+- Navigate to the root folder
 
 1. To runs all the tests:
 ```shell
@@ -177,8 +156,7 @@ python3 -m unittest app.tests.test_payment_entries.TestPaymentEntriesEndpoints.t
 3. **Sendgrid**: Email api third-party service.
 4. **SQLalchemy**: Database Abstraction Library.
 5. **SQLite**: file-based relational database commonly used for testing.
-6. **Nodejs**: Cross-platform runtime environment.
-7. **React**: Javascript Library for building user interfaces.
+
 
 ## Contributing
 If you'd like to contribute, please fork the repository and use a feature
