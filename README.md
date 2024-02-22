@@ -39,7 +39,8 @@ Navigate into the BudgetBuddyBackend folder.
 ```shell
 cd BudgetBuddyBackend
 ```
-Install Poetry(if not already installed).
+Install Poetry if not already installed. 
+(*Please note that Poetry should always be installed within a virtual environment*)
 ```shell
 curl -sSL https://install.python-poetry.org | python3 -
 ```
