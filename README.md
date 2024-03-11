@@ -1,17 +1,16 @@
 ![Logo of the project](https://raw.githubusercontent.com/jehna/readme-best-practices/master/sample-logo.png)
 
 # BUDGET BUDDY
-> A budgeting app for record expenditure in different categories with an automated email system for overspending alerts.
+> A budgeting app for recording expenditures in different categories with an automated email system for overspending alerts.
 
 ## Setup Guide
 ### Prerequisites
 Before setting up Budget Buddy, ensure you have the following installed:
-Python 3
-Node.js and npm
-Git
-Poetry
+- Python3
+- Node.js and npm
+- Poetry
 
-### clone the Repository
+### Clone the Repository
 ```shell
 git clone git@github.com:Linda-Njau/BudgetBuddy.git
 ```
